@@ -1,0 +1,130 @@
+@charset "utf-8"
+// modify the bulma variables here
+$primary: #7FAB96
+$dark: #dddfd7
+$success: #fdef25
+$warning: #EB6418
+$text: #292426
+$family-primary: 'Cairo', sans-serif
+$family-secondary: 'Comfortaa', sans-serif
+$size-1: 5rem
+$size-2: 4rem
+$size-3: 3rem
+$size-4: 2.5rem
+$size-5: 2rem
+$size-medium: 1.6rem
+$gap: 32px !default
+$fullhd: 1600px + (2 * $gap) !default
+// Import Bulma and Buefy styles
+@import "bulma/bulma"
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&display=swap')
+
+*, *::before, *::after
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+html
+  font-size: 110%
+
+.container
+  padding: 0 .5rem
+
+.button
+  white-space: normal
+  height: auto
+
+.menu-avatar
+  overflow: hidden
+  border: 1px solid $primary
+  border-radius: 50%
+
+
+// clock
+
+.clock-wrapper
+  position: relative
+
+.clock-outerring
+  position: relative
+  width: 250px
+  height: 250px
+  border-radius: 50%
+  border: 5px solid $primary
+  overflow: hidden
+  box-shadow: inset 0px 0px 15px $primary
+
+.clock-face1, .clock-face2
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+
+.clock-face1
+  background-color: $warning
+  clip-path: polygon(50% 50%, 50% 0, 100% 0)
+
+
+.clock-face2
+  background-color: $success
+  clip-path: polygon(50% 50%, 100% 0, 100% 50%)
+
+.clock-face3, .clock-face4, .clock-face5, .clock-face6
+  position: absolute
+  top: 50%
+  left: 50%
+  width: 90%
+  height: 90%
+  transform: translate(-50%, -50%)
+  border-radius: 50%
+
+.clock-face3
+  background-color: #53cc238c
+  clip-path: polygon(50% 50%, 50% 0, 0 0, 0 100%, 100% 100%, 100% 50%)
+
+.clock-face4
+  background-color: #fff
+
+.clock-face5
+  width: 80%
+  height: 80%
+  background-color: #fff
+
+
+.clock-face6
+  width: 60%
+  height: 60%
+  background-color: $primary
+  // box-shadow: 0px 0px 30px -2px $primary
+
+.clock-tip
+  position: absolute
+  width: 2px
+  height: 55%
+  top: 8px
+  left: 50%
+  transform: translateX(-50%)
+  background-color: #303030
+
+.clock-tipmark
+  width: 6px
+  height: 6px
+  position: absolute
+  top: 8px
+  left: 50%
+  transform: translateX(-50%)
+  background-color: red
+  border-radius: 50%
+
+.clock-pin
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  width: 10px
+  height: 10px
+  background-color: $dark
+  border-radius: 50%
+
