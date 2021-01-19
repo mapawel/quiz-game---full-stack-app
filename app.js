@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const { flash } = require('express-flash-message');
 const User = require('./models/user');
 const rootRoutes = require('./routes/rootRoutes');
 const guestRoutes = require('./routes/guestRoutes');
@@ -48,7 +49,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(userSession));
-
+app.use(flash({ sessionKeyName: 'flashMessage', useCookieSession: true }));
 
 
 
@@ -58,7 +59,6 @@ app.use(async (req, res, next) => {
       const guestUser = new User({})
       await guestUser.save()
       req.session.user = guestUser
-      // req.user = guestUser
     } else {
       const currentUser = await User.findById(req.session.user._id).exec()
       req.session.user = currentUser;

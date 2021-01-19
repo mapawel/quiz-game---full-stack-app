@@ -8,4 +8,6 @@ router.get('/prepare', gameController.getPrepareGame);
 
 router.get('/play', gameController.getPlayGame);
 
+router.post('/play', gameController.postPlayGameAnswer);
+
 module.exports = router;

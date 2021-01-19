@@ -24,6 +24,7 @@ const GuestView = ({ userName, title }) => (
           </div>
             </div>
             <div className="box">
+  
               <form className="fled" method="POST" action="/game/prepare">
                 <label className="label" htmlFor="nick">my nick-name is:</label>
                 <div className="control">

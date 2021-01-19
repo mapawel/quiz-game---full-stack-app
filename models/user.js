@@ -23,7 +23,7 @@ const userSchema = new Schema({
     type: Number,
     default: Date.now,
   },
-  questionsAnswered: [Number],
+  questionsAnswered: [],
   gamesPlaied: {
     type: Number,
     default: 0,

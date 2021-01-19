@@ -3,7 +3,7 @@ import HeadTemplate from './templates/HeadTemplate';
 import Navbar from './templates/Navbar';
 import Clock from './components/organizms/Clock';
 
-const Playgame = ({ userName, title }) => (
+const Playgame = ({ userName, title, message, gameData: { question, answers, id } }) => (
   <HeadTemplate
     title={title}
   >
@@ -30,16 +30,25 @@ const Playgame = ({ userName, title }) => (
           <div className="columns is-centered">
             <div className="column is-flex is-flex-direction-column">
               <p className="title is-6 is-size-5-tablet is-size-4normal-desktop">
-                here is very long text od the very complicatego question to as uset about somethinw which he is not going to answer
-            </p>
+                {question}
+              </p>
             </div>
           </div>
         </div>
         <div className="is-flex is-flex-direction-column">
-          <button className="button is-primary is-outlined mb-2">test answer number 1 or a ery lang answer test answer number 1 or a ery lang answer</button> <button className="button is-primary is-outlined mb-2">test answer number 1 or a ery lang answer</button>
-          <button className="button is-primary is-outlined mb-2">test answer number 1 or a ery lang answer</button>
-          <button className="button is-primary is-outlined mb-2">test answer number 1 or a ery lang answer</button>
+          {answers.map((answer, index) =>
+            <form method="POST" action="/game/play" key={index}>
+              <button type="submit" id={index} className="button is-primary is-outlined mb-2 is-fullwidth">{answer}</button>
+              <input type="hidden" name="answerNumber" value={index}></input>
+              <input type="hidden" name="questionId" value={id}></input>
+            </form>
+          )}
         </div>
+        {message && <div className="notification is-primary">
+          <button className="delete"></button>
+          {message && <span className="subtitle has-text-centered is-6 is-size-5-tablet is-size-4-desktop has-text-grey mb-4">{message}</span>}
+        </div>}
+
       </div>
     </section>
   </HeadTemplate>
