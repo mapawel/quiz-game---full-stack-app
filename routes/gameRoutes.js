@@ -10,4 +10,6 @@ router.get('/play', gameController.getPlayGame);
 
 router.post('/play', gameController.postPlayGameAnswer);
 
+router.get('/finish', gameController.getFinishGame);
+
 module.exports = router;

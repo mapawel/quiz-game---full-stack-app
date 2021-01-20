@@ -17,7 +17,7 @@ const Preparegame = ({ userName, title }) => (
                 answer 10 questions, watch your time! Good luck!
               </h3>
               <a href="/game/play" className="is-align-self-flex-end">
-                <button className="button is-success mr-4"><b>GO!</b></button>
+                <button className="button is-success is-medium mr-4"><b>Play</b></button>
               </a>
             </div>
             <div className="column is-one-quarter">

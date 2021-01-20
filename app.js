@@ -59,9 +59,11 @@ app.use(async (req, res, next) => {
       const guestUser = new User({})
       await guestUser.save()
       req.session.user = guestUser
+      req.session.currentGame = ({...req.session.currentGame})
     } else {
       const currentUser = await User.findById(req.session.user._id).exec()
       req.session.user = currentUser;
+      req.session.currentGame = ({...req.session.currentGame})
     }
     next();
   } catch (err) {

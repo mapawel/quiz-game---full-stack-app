@@ -4,9 +4,9 @@ const Header = () => (
   <section className="section">
     <div className="container is-widescreen mt-5">
       <div className="columns is-desktop is-vcentered">
-        <div className="column">
+        <div className="column is-three-fifths">
           <figure className="image is-1by1">
-            <img className="header-img" src="/images/welcomeImage.svg" />
+            <img className="header-img" src="/images/headerImage.svg" />
           </figure>
         </div>
         <div className="column is-flex is-flex-direction-column">
