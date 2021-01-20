@@ -2,7 +2,7 @@ import React from 'react'
 import HeadTemplate from './templates/HeadTemplate';
 import Navbar from './templates/Navbar';
 
-const Finishgame = ({ userName, title, message, stats: { pointsInCurrentGame, currentGameTime, winner } }) => (
+const Finishgame = ({ userName, title, message, stats: { pointsInCurrentGame, currentGameTime, winner, currentGameFormatedTime } }) => (
   <HeadTemplate
     title={title}
   >
@@ -48,7 +48,7 @@ const Finishgame = ({ userName, title, message, stats: { pointsInCurrentGame, cu
               points: <span className="title has-text-centered is-5 is-size-4-tablet is-size-3-desktop mt-4">{pointsInCurrentGame}</span>
             </p>
             <p className="subtitle has-text-grey is-6 is-size-5-tablet is-size-4-desktop mb-3">
-              time: <span className="title has-text-centered is-5 is-size-4-tablet is-size-3-desktop mt-4">{currentGameTime}</span>
+              time: <span className="title has-text-centered is-5 is-size-4-tablet is-size-3-desktop mt-4">{currentGameFormatedTime}</span>
             </p>
           </div>
         </div>

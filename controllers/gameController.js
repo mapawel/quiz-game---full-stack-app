@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const QuestionShort = require('../models/questionShort');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const moment = require('moment');
 
 module.exports.postGuestGame = async (req, res, next) => {
   const { name } = req.body
@@ -125,8 +126,10 @@ module.exports.getFinishGame = async (req, res, next) => {
     const stats = {
       pointsInCurrentGame: 10 - req.session.currentGame.questionsToAnswer,
       currentGameTime: Date.now() - req.session.currentGame.gameStartTime,
+      currentGameFormatedTime: moment((Date.now() - req.session.currentGame.gameStartTime), "x").format("mm:ss"),
       winner: req.session.currentGame.winner,
     }
+    console.log(stats.currentGameFormatedTime)
     const user = req.session.user;
     if (stats.winner) {
       user.winnerQty++
