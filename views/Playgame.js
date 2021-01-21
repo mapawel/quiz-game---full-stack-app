@@ -3,7 +3,14 @@ import HeadTemplate from './templates/HeadTemplate';
 import Navbar from './templates/Navbar';
 import Clock from './components/organizms/Clock';
 
-const Playgame = ({ userName, title, message, gameData: { question, answers, id } }) => (
+const Playgame = ({ userName, title, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
+  maxScoreIfNotWin, bestWinFormatedTime } }) => {
+    let userResult = '';
+    if (maxScoreIfNotWin*1 === 1) userResult = `${maxScoreIfNotWin} point`;
+    else if (maxScoreIfNotWin*1 === 10) userResult = `WIN in ${bestWinFormatedTime}`;
+    else userResult = `${maxScoreIfNotWin} points`;
+    
+    return (
   <HeadTemplate
     title={title}
   >
@@ -16,13 +23,15 @@ const Playgame = ({ userName, title, message, gameData: { question, answers, id 
           </div>
           <div className="column is-flex is-flex-direction-column">
             <p className="subtitle is-6 is-size-5-tablet is-size-4-desktop has-text-grey mb-2">
-              Question to answer: <span className="title is-4 is-size-3-tablet is-size-2-desktop">10</span>
+              Question to answer: <span className="title is-4 is-size-3-tablet is-size-2-desktop">{questionsToAnswer}</span>
             </p>
             <p className="subtitle is-6 is-size-5-tablet is-size-4-desktop has-text-grey mb-4">
-              Total game time: <span className="title is-4 is-size-3-tablet is-size-2-desktop">6:45</span>
+              Total game time: <span id="gameTime" data-gamestarttime={gameStartTime} className="title is-4 is-size-3-tablet is-size-2-desktop"></span>
             </p>
             <p className="subtitle is-7 is-size-6-tablet is-size-5-desktop has-text-grey">
-              Your best score: <span className="title is-6 is-size-5-tablet is-size-4-desktop">9 good answers in 12:43</span>
+              Your best score: <span className="title is-6 is-size-5-tablet is-size-4-desktop">
+                {userResult}
+              </span>
             </p>
           </div>
         </div>
@@ -44,14 +53,16 @@ const Playgame = ({ userName, title, message, gameData: { question, answers, id 
             </form>
           )}
         </div>
-        {message && <div className="notification is-primary">
+        {message && <div className="notification is-primary self-close">
           <button className="delete"></button>
           {message && <span className="subtitle has-text-centered is-6 is-size-5-tablet is-size-4-desktop has-text-grey mb-4">{message}</span>}
         </div>}
 
       </div>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossOrigin="anonymous"></script>
+    <script src="/js/gameClock.js"></script>
   </HeadTemplate>
-)
+)}
 
 export default Playgame;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = ({userName}) => (
+const Navbar = ({ userName }) => (
   <nav className="navbar is-fixed" role="navigation" aria-label="main navigation">
     <div className="container is-widescreen">
       <div className="navbar-brand mr-3">
@@ -17,12 +17,15 @@ const Navbar = ({userName}) => (
 
       <div id="navBarTop" className="navbar-menu">
         <div className="navbar-start">
-          <div className="navbar-item">
-            <a href="/guest" className="button is-success">
-              <strong>PLAY</strong>
+          <div className="navbar-item mx-5">
+            <a href="/guest" className="button is-success is-outlined has-text-black">
+              PLAY
             </a>
           </div>
-          <a className="navbar-item">
+          <a href="/results" className="navbar-item mx-5">
+            Results
+              </a>
+          <a className="navbar-item mx-5">
             About
               </a>
         </div>

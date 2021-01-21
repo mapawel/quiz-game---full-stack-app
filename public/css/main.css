@@ -12828,7 +12828,7 @@ html {
 .clock-tip {
   position: absolute;
   width: 2px;
-  height: 55%;
+  height: 54%;
   top: 8px;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -12840,11 +12840,11 @@ html {
   width: 6px;
   height: 6px;
   position: absolute;
-  top: 8px;
+  top: 5%;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  background-color: red;
+  background-color: #EB6418;
   border-radius: 50%;
 }
 
@@ -12854,9 +12854,16 @@ html {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
   background-color: #dddfd7;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 450px) {
+  .table td,
+  .table th {
+    padding: .2rem .1rem;
+  }
 }
 /*# sourceMappingURL=main.css.map */

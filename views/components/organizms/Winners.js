@@ -8,7 +8,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
           {winners.length > 0 && (
             <>
               <h1 className="title is-3 is-size-2-tablet is-size-1-desktop mb-2 mt-2">The winners:</h1>
-              <table className="table content is-small ml-3 mr-5">
+              <table className="table content ml-3 mr-5">
                 <thead>
                   <tr>
                     <th><p title="position">Pos</p></th>
@@ -38,7 +38,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
           {restPlayers.length > 0 && (
             <>
               <h3 className="subtitle is-5 is-size-4-tablet is-size-3-desktop has-text-grey mb-2">The rest players:</h3>
-              <table className="table content is-small ml-3 mr-5">
+              <table className="table content ml-3 mr-5">
                 <thead>
                   <tr>
                     <th><p title="Position">Pos</p></th>
@@ -48,19 +48,19 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
                   </tr>
                 </thead>
                 <tbody>
-                  {restPlayers.length > 0  && restPlayers.map((player, index) => (
+                  {restPlayers.length > 0 && restPlayers.map((player, index) => (
                     <tr key={index + player.email}>
                       <th><p>{index + 1}</p></th>
                       <td><p>{player.name}</p></td>
                       <td>{player.maxScoreIfNotWin}</td>
-                      <td>{player.avarageScore}</td>
+                      <td>{player.avarageScore.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </>
           )}
-          <button className="button is-primary is-medium is-align-self-flex-start"><strong>full results list</strong></button>
+          <a href="/results" className="is-align-self-flex-start"><button className="button is-primary is-medium"><strong>full results list</strong></button></a>
         </div>
         <div className="column is-three-fifths">
           <figure className="image is-4by3">

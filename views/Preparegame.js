@@ -31,7 +31,6 @@ const Preparegame = ({ userName, title }) => (
         </div>
       </div>
     </section>
-    <h1>{userName}</h1>
   </HeadTemplate>
 )
 

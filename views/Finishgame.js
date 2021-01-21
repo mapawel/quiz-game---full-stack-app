@@ -16,10 +16,19 @@ const Finishgame = ({ userName, title, message, stats: { pointsInCurrentGame, cu
               <h3 className="subtitle is-5 is-size-4-tablet is-size-3-desktop has-text-grey mb-6">
                 {message}
               </h3>
-              <form className="fled is-align-self-flex-end" method="POST" action="/game/prepare">
-                <input className="input is-primary" name="name" id="nick" type="hidden" value={userName} />
-                <button type="submit" className="button is-medium is-success">Play again</button>
-              </form>
+              <div className="level">
+                <div className="level-left">
+                  <a href="/results" className="">
+                    <button className="button is-primary">See results</button>
+                  </a>
+                </div>
+                <div className="level-right">
+                  <form className="fled is-align-self-flex-end" method="POST" action="/game/prepare">
+                    <input className="input is-primary" name="name" id="nick" type="hidden" value={userName} />
+                    <button type="submit" className="button is-success">Play again</button>
+                  </form>
+                </div>
+              </div>
             </div>
             {winner ? (
               <div className="column is-half">

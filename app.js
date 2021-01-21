@@ -73,7 +73,6 @@ app.use(async (req, res, next) => {
 
 
 
-
 app.use('/', rootRoutes);
 app.use('/guest', guestRoutes);
 app.use('/game', gameRoutes);

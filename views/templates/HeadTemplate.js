@@ -11,6 +11,7 @@ const HeadTemplate = ({ children, title }) => (
     <body>
       {children}
     <script src="/js/menu.js"></script>
+    <script src="/js/notifications.js"></script>
     </body>
   </html>
 )
