@@ -12,6 +12,9 @@ const userSchema = new Schema({
     required: true,
     default: 'Guest',
   },
+  password: {
+    type: String,
+  },
   avatar: {
     type: String,
     default: ''
@@ -51,6 +54,14 @@ const userSchema = new Schema({
   avarageAnswerTime: {
     type: Number,
     default: 0,
+  },
+  isSignedUp: {
+    type: Boolean,
+    default: false,
+  },
+  isLoggedIn: {
+    type: Boolean,
+    default: false,
   },
 })
 

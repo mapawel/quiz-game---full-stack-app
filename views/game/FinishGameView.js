@@ -1,8 +1,8 @@
 import React from 'react'
-import HeadTemplate from './templates/HeadTemplate';
-import Navbar from './templates/Navbar';
+import HeadTemplate from '../templates/HeadTemplate';
+import Navbar from '../templates/Navbar';
 
-const Finishgame = ({ userName, title, message, stats: { pointsInCurrentGame, currentGameTime, winner, currentGameFormatedTime } }) => (
+const FinishGame = ({ userName, title, message, stats: { pointsInCurrentGame, currentGameTime, winner, currentGameFormatedTime } }) => (
   <HeadTemplate
     title={title}
   >
@@ -66,4 +66,4 @@ const Finishgame = ({ userName, title, message, stats: { pointsInCurrentGame, cu
   </HeadTemplate>
 )
 
-export default Finishgame;
+export default FinishGame;

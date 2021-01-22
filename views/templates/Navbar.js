@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = ({ userName }) => (
+const Navbar = ({ userName, isLoggedIn }) => (
   <nav className="navbar is-fixed" role="navigation" aria-label="main navigation">
     <div className="container is-widescreen">
       <div className="navbar-brand mr-3">
@@ -18,7 +18,7 @@ const Navbar = ({ userName }) => (
       <div id="navBarTop" className="navbar-menu">
         <div className="navbar-start">
           <div className="navbar-item mx-5">
-            <a href="/guest" className="button is-success is-outlined has-text-black">
+            <a href="/auth" className="button is-success is-outlined has-text-black">
               PLAY
             </a>
           </div>
@@ -31,17 +31,9 @@ const Navbar = ({ userName }) => (
         </div>
 
         <div className="navbar-end">
-          {/* <div className="navbar-item">
-              <div className="buttons">
-                <a className="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a className="button is-light">
-                  Log in
-                </a>
-              </div>
-            </div> */}
           <div className="level is-flex is-justify-content-flex-end">
+            {isLoggedIn &&
+              <p className="has-text-primary is-size-7 has-text-centered has-text-weight-bold is-italic mr-3">User Logged In!</p>}
             <figure className="image is-48x48 menu-avatar">
               <img src="/images/guestUser.svg" />
             </figure>
@@ -59,11 +51,14 @@ const Navbar = ({ userName }) => (
                   Profile
               </a> */}
                 {/* <hr className="navbar-divider" /> */}
-                <a className="navbar-item">
+                <a href="/auth/login" className="navbar-item">
                   Log In
               </a>
-                <a className="navbar-item">
-                  Sign On
+                <a href="/auth/signon" className="navbar-item">
+                  Sign Up
+              </a>
+                <a href="/auth/logout" className="navbar-item">
+                  Log Out
               </a>
               </div>
             </div>

@@ -59,8 +59,8 @@ module.exports.getResults = async (req, res, next) => {
     results = results.map(user => ({ ...user, ...{ bestWinFormatedTime: moment(user.bestWinTime, "x").format("mm:ss") } }))
   }
 
-  res.render('results', {
-    title: 'The Quiz Game',
+  res.render('ResultsView', {
+    title: 'The Quiz Game - results',
     userName: req.session.user.name,
     page,
     results,

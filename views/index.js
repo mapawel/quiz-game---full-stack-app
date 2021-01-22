@@ -5,15 +5,15 @@ import Header from './components/organizms/Header';
 import Winners from './components/organizms/Winners';
 import MyStats from './components/organizms/MyStats';
 
-const HelloMessage = ({ userName, title, resultsTables }) => (
+const Root = ({ userName, isLoggedIn, title, resultsTables }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
       <Header />
       <Winners resultsTables={resultsTables} />
       <MyStats />
   </HeadTemplate>
 )
 
-export default HelloMessage;
+export default Root;

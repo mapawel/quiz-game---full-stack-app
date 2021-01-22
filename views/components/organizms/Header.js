@@ -14,7 +14,7 @@ const Header = () => (
           <h3 className="subtitle is-5 is-size-4-tablet is-size-3-desktop has-text-grey mb-6">
             Let's try to test yourself in general knowledge. Can you join to the winners?
           </h3>
-          <a href="/guest" className="is-align-self-flex-end">
+          <a href="/auth" className="is-align-self-flex-end">
             <button className="button is-success is-medium mr-5"><strong>PLAY</strong></button>
           </a>
         </div>

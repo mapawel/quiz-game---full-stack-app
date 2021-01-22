@@ -1,8 +1,8 @@
 import React from 'react'
-import HeadTemplate from './templates/HeadTemplate';
-import Navbar from './templates/Navbar';
+import HeadTemplate from '../templates/HeadTemplate';
+import Navbar from '../templates/Navbar';
 
-const GuestView = ({ userName, title }) => (
+const CheckAccount = ({ userName, title }) => (
   <HeadTemplate
     title={title}
   >
@@ -15,16 +15,16 @@ const GuestView = ({ userName, title }) => (
               <button className="delete"></button>
               <div className="block">
                 You are not signed in.
-          </div>
+              </div>
               <div className="block">
                 You can play as a guest however after signed in you will have full statistics and comparisions to the other players.
-          </div>
+              </div>
               <div className="block">
                 To play as a guest just put your nick-name on and press <b>start</b> or use <b>log in</b> / <b>sign on</b> buttons.
-          </div>
+              </div>
             </div>
             <div className="box">
-  
+
               <form className="fled" method="POST" action="/game/prepare">
                 <label className="label" htmlFor="nick">my nick-name is:</label>
                 <div className="control">
@@ -35,9 +35,13 @@ const GuestView = ({ userName, title }) => (
             </div>
             <div className="box">
               <p className="subtitle">I have an account:</p>
-              <button className="button is-primary">Log In</button>
+              <a href="/auth/login" >
+                <button className="button is-primary">Log In</button>
+              </a>
               <p className="subtitle">I don't have an account and I want one:</p>
-              <button className="button is-primary">Sign On</button>
+              <a href="/auth/signon">
+                <button className="button is-primary">Sign On</button>
+              </a>
             </div>
           </div>
         </div>
@@ -46,4 +50,4 @@ const GuestView = ({ userName, title }) => (
   </HeadTemplate>
 )
 
-export default GuestView;
+export default CheckAccount;

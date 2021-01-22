@@ -1,3 +1,4 @@
+const debug = require('debug')('game')
 const dotenv = require('dotenv').config()
 const express = require('express');
 const path = require('path');
@@ -8,7 +9,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const { flash } = require('express-flash-message');
 const User = require('./models/user');
 const rootRoutes = require('./routes/rootRoutes');
-const guestRoutes = require('./routes/guestRoutes');
+const authRoutes = require('./routes/authRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 
 if (dotenv.error) {
@@ -22,20 +23,20 @@ mongoose.connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log('ERROR WHILE INITIAL CONNECT TO MONGODB', err));
 
 const store = new MongoDBStore({
-    uri: dburl,
-    collection: 'sessions'
-  });
-store.on('error', function(error) {
-    console.log(error);
-  });
+  uri: dburl,
+  collection: 'sessions'
+});
+store.on('error', function (error) {
+  console.log(error);
+});
 
 const app = express();
 const db = mongoose.connection;
 const port = process.env.port || 8000;
 const userSession = {
   secret: sesstionSecret,
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   cookie: {},
   store,
 }
@@ -43,6 +44,9 @@ const userSession = {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'js');
 app.engine('js', require('express-react-views').createEngine());
+
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -59,23 +63,27 @@ app.use(async (req, res, next) => {
       const guestUser = new User({})
       await guestUser.save()
       req.session.user = guestUser
-      req.session.currentGame = ({...req.session.currentGame})
     } else {
       const currentUser = await User.findById(req.session.user._id).exec()
       req.session.user = currentUser;
-      req.session.currentGame = ({...req.session.currentGame})
+      res.locals.isLoggedIn = currentUser.isLoggedIn
     }
+    req.session.currentGame = ({ ...req.session.currentGame })
     next();
   } catch (err) {
     console.log(err)
   }
 })
 
-
+app.use((req, res, next) => {
+  debug(req.method + ' ' + req.url);
+  next()
+})
 
 app.use('/', rootRoutes);
-app.use('/guest', guestRoutes);
+app.use('/auth', authRoutes);
 app.use('/game', gameRoutes);
+
 
 
 

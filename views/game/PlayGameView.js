@@ -1,9 +1,9 @@
 import React from 'react'
-import HeadTemplate from './templates/HeadTemplate';
-import Navbar from './templates/Navbar';
-import Clock from './components/organizms/Clock';
+import HeadTemplate from '../templates/HeadTemplate';
+import Navbar from '../templates/Navbar';
+import Clock from '../components/organizms/Clock';
 
-const Playgame = ({ userName, title, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
+const PlayGame = ({ userName, title, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
   maxScoreIfNotWin, bestWinFormatedTime } }) => {
     let userResult = '';
     if (maxScoreIfNotWin*1 === 1) userResult = `${maxScoreIfNotWin} point`;
@@ -65,4 +65,4 @@ const Playgame = ({ userName, title, message, gameData: { question, answers, id 
   </HeadTemplate>
 )}
 
-export default Playgame;
+export default PlayGame;

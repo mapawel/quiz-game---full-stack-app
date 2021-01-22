@@ -22,9 +22,12 @@ module.exports.getPrepareGame = async (req, res, next) => {
   req.session.currentGame.canplay = true;
   req.session.currentGame.questionsToAnswer = 11;
   req.session.currentGame.gameStartTime = null;
-  res.render('preparegame', {
-    title: 'The Quiz Game',
-    userName: req.session.user.name,
+  req.session.save((err) => {
+    if (err) console.log(err)
+    res.render('game/PrepareGameView', {
+      title: 'The Quiz Game - preparing ...',
+      userName: req.session.user.name,
+    })
   })
 }
 
@@ -36,44 +39,41 @@ module.exports.getPlayGame = async (req, res, next) => {
     req.session.currentGame.questionStartTime = Date.now()
     if (!req.session.currentGame.gameStartTime) req.session.currentGame.gameStartTime = Date.now()
     req.session.currentGame.questionsToAnswer--
-    req.session.save((err) => {
-      if (err) {
-        console.log(err)
+    req.session.save(async (err) => {
+      if (err) console.log(err)
+      if (req.session.currentGame.questionsToAnswer === 0) {
+        req.session.currentGame.winner = true;
+        await req.flash('info', 'Grat Job! You WON!');
+        req.session.save((err) => {
+          if (err) console.log(err)
+          res.redirect('/game/finish')
+        })
+      } else {
+        const [questionObj] = await QuestionShort.aggregate([
+          { $match: { _id: { $nin: req.session.user.questionsAnswered } } },
+          { $sample: { size: 1 } }
+        ]).exec()
+        const { _id, question, content: answers } = questionObj
+        const { maxScoreIfNotWin, bestWinTime } = req.session.user
+        const bestWinFormatedTime = moment(bestWinTime, "x").format("mm:ss")
+        res.render('game/PlayGameView', {
+          title: 'The Quiz Game - play ...',
+          userName: req.session.user.name,
+          message,
+          gameData: {
+            question,
+            answers,
+            id: _id.toString(),
+          },
+          currentGame: req.session.currentGame,
+          userScore: {
+            maxScoreIfNotWin,
+            bestWinFormatedTime,
+          },
+        })
       }
     })
-    if (req.session.currentGame.questionsToAnswer === 0) {
-      req.session.currentGame.winner = true;
-      await req.flash('info', 'Grat Job! You WON!');
-      req.session.save((err) => {
-        if (err) {
-          console.log(err)
-        }
-      })
-      res.redirect('/game/finish')
-    } else {
-      const [questionObj] = await QuestionShort.aggregate([
-        { $match: { _id: { $nin: req.session.user.questionsAnswered } } },
-        { $sample: { size: 1 } }
-      ]).exec()
-      const { _id, question, content: answers } = questionObj
-      const { maxScoreIfNotWin, bestWinTime } = req.session.user
-      const bestWinFormatedTime = moment(bestWinTime, "x").format("mm:ss")
-      res.render('playgame', {
-        title: 'The Quiz Game',
-        userName: req.session.user.name,
-        message,
-        gameData: {
-          question,
-          answers,
-          id: _id.toString(),
-        },
-        currentGame: req.session.currentGame,
-        userScore: {
-          maxScoreIfNotWin,
-          bestWinFormatedTime,
-        },
-      })
-    }
+
   } catch (err) {
     console.log(err)
   }
@@ -84,42 +84,40 @@ module.exports.postPlayGameAnswer = async (req, res, next) => {
   const { answerNumber, questionId } = req.body;
   try {
     const currentQuestion = await QuestionShort.findById(questionId).exec()
+
     if (answerDate - req.session.currentGame.questionStartTime > 60000) {
       req.session.currentGame.canplay = false;
       await req.flash('info', 'Answer after real time checked by server!');
       req.session.save((err) => {
-        if (err) {
-          console.log(err)
-        }
+        if (err) console.log(err)
+        res.redirect('/game/finish');
       })
-      res.redirect('/game/finish');
+
     } else if (currentQuestion.correct.toString() === answerNumber.toString()) {
       req.session.currentGame.canplay = true;
       await req.flash('info', 'Good Answer!');
-      req.session.save((err) => {
-        if (err) {
-          console.log(err)
+      req.session.save(async (err) => {
+        if (err) console.log(err)
+        let answeredArr = [...req.session.user.questionsAnswered]
+        const questionsTotalQty = await QuestionShort.countDocuments()
+        if (answeredArr.length === questionsTotalQty - 1) {
+          answeredArr = []
+        } else {
+          answeredArr.push(mongoose.Types.ObjectId(questionId))
         }
+        await User.findOneAndUpdate({ _id: req.session.user._id }, { questionsAnswered: answeredArr }, { useFindAndModify: false }).exec()
+        res.redirect('/game/play')
       })
-      let answeredArr = [...req.session.user.questionsAnswered]
-      const questionsTotalQty = await QuestionShort.countDocuments()
-      if (answeredArr.length === questionsTotalQty - 1) {
-        answeredArr = []
-      } else {
-        answeredArr.push(mongoose.Types.ObjectId(questionId))
-      }
-      await User.findOneAndUpdate({ _id: req.session.user._id }, { questionsAnswered: answeredArr }, { useFindAndModify: false }).exec()
-      res.redirect('/game/play')
+
     } else {
       req.session.currentGame.canplay = false;
       await req.flash('info', 'Wrong answer... try again.');
       req.session.save((err) => {
-        if (err) {
-          console.log(err)
-        }
+        if (err) console.log(err)
+        res.redirect('/game/finish');
       })
-      res.redirect('/game/finish');
     }
+
   } catch (err) {
     console.log(err)
   }
@@ -157,15 +155,13 @@ module.exports.getFinishGame = async (req, res, next) => {
     req.session.currentGame.winner = null;
     req.session.currentGame.gameInProgress = false;
     req.session.save((err) => {
-      if (err) {
-        console.log(err)
-      }
-    })
-    res.render('Finishgame', {
-      title: 'The Quiz Game',
-      userName: req.session.user.name,
-      message,
-      stats,
+      if (err) console.log(err)
+      res.render('game/FinishGameView', {
+        title: 'The Quiz Game',
+        userName: req.session.user.name,
+        message,
+        stats,
+      })
     })
   } catch (err) {
     console.log(err)

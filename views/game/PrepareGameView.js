@@ -1,8 +1,8 @@
 import React from 'react'
-import HeadTemplate from './templates/HeadTemplate';
-import Navbar from './templates/Navbar';
+import HeadTemplate from '../templates/HeadTemplate';
+import Navbar from '../templates/Navbar';
 
-const Preparegame = ({ userName, title }) => (
+const PrepareGame = ({ userName, title }) => (
   <HeadTemplate
     title={title}
   >
@@ -34,4 +34,4 @@ const Preparegame = ({ userName, title }) => (
   </HeadTemplate>
 )
 
-export default Preparegame;
+export default PrepareGame;
