@@ -1,12 +1,12 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const debug = require('debug')('game')
 
 
 module.exports.getCheckAccount = async (req, res, next) => {
   res.render('auth/CheckAccountView', {
     title: 'The Quiz Game',
-    userName: req.session.user.name,
+    userName: 'test',
+    // userName: req.session.user.name,
   })
 }
 

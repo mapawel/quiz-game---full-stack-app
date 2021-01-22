@@ -27,7 +27,8 @@ module.exports.getStart = async (req, res, next) => {
   }
   res.render('index', {
     title: 'The Quiz Game',
-    userName: req.session.user.name,
+    userName: 'test',
+    // userName: req.session.user.name,
     resultsTables: {
       winners,
       restPlayers

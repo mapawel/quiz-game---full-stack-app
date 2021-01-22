@@ -3,21 +3,29 @@ const QuestionShort = require('../models/questionShort');
 const mongoose = require('mongoose');
 const moment = require('moment');
 
+
 module.exports.postGuestGame = async (req, res, next) => {
-  const { name } = req.body
   const capitalize = (string) => {
     const strArr = string.toLowerCase().split(' ')
     const x = strArr.map(str => str[0].toUpperCase() + str.slice(1))
     return x.join(' ')
   }
-  await User.findOneAndUpdate({ _id: req.session.user._id }, { name: capitalize(name) }, { useFindAndModify: false }).exec()
-  res.redirect('/game/prepare')
+
+  const { name } = req.body;
+  if (!req.session.user) {
+    const guestUser = new User({ name: capitalize(name) })
+    await guestUser.save()
+    req.session.user = guestUser
+    req.session.save((err) => {
+      if (err) console.log(err);
+      res.redirect('/game/prepare');
+    })
+  } else res.redirect('/game/prepare');
 }
 
 module.exports.getPrepareGame = async (req, res, next) => {
   if (req.session.currentGame.gameInProgress) {
-    res.redirect('/game/finish?finished=true');
-    return
+    return res.redirect('/game/finish?finished=true');
   }
   req.session.currentGame.canplay = true;
   req.session.currentGame.questionsToAnswer = 11;
