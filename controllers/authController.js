@@ -5,8 +5,6 @@ const bcrypt = require('bcryptjs');
 module.exports.getCheckAccount = async (req, res, next) => {
   res.render('auth/CheckAccountView', {
     title: 'The Quiz Game',
-    userName: 'test',
-    // userName: req.session.user.name,
   })
 }
 
@@ -14,7 +12,6 @@ module.exports.getSignOn = async (req, res, next) => {
   const [message] = await req.consumeFlash('authInfo');
   res.render('auth/SignOnView.js', {
     title: 'The Quiz Game - sign on',
-    userName: req.session.user.name,
     message,
     inputValues: { name: '', email: '', password: '', confirmpassword: '' },
   })
@@ -28,7 +25,6 @@ module.exports.postSignOn = async (req, res, next) => {
     message = 'This e-mail address exists in our base. Please Log In using it or Sign On using another e-mail address.'
     return res.render('auth/SignOnView.js', {
       title: 'The Quiz Game - sign on',
-      userName: req.session.user.name,
       message,
       inputValues: { name, email, password, confirmpassword },
     })
@@ -50,7 +46,6 @@ module.exports.getLogIn = async (req, res, next) => {
   const [message] = await req.consumeFlash('authInfo');
   res.render('auth/LogInView.js', {
     title: 'The Quiz Game - sign on',
-    userName: req.session.user.name,
     message,
     inputValues: { email: '' }
   })

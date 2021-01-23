@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = ({ userName, isLoggedIn }) => (
+const Navbar = ({ userName = 'Guest', isLoggedIn }) => (
   <nav className="navbar is-fixed" role="navigation" aria-label="main navigation">
     <div className="container is-widescreen">
       <div className="navbar-brand mr-3">
@@ -33,7 +33,8 @@ const Navbar = ({ userName, isLoggedIn }) => (
         <div className="navbar-end">
           <div className="level is-flex is-justify-content-flex-end">
             {isLoggedIn &&
-              <p className="has-text-primary is-size-7 has-text-centered has-text-weight-bold is-italic mr-3">User Logged In!</p>}
+              <p className="has-text-primary is-size-7 has-text-centered has-text-weight-bold is-italic mr-3">User Logged In!</p>
+            }
             <figure className="image is-48x48 menu-avatar">
               <img src="/images/guestUser.svg" />
             </figure>
@@ -44,22 +45,32 @@ const Navbar = ({ userName, isLoggedIn }) => (
               </a>
 
               <div className="navbar-dropdown">
-                {/* <a className="navbar-item">
-                  Statistics
-              </a>
-                <a className="navbar-item">
-                  Profile
-              </a> */}
-                {/* <hr className="navbar-divider" /> */}
-                <a href="/auth/login" className="navbar-item">
-                  Log In
-              </a>
-                <a href="/auth/signon" className="navbar-item">
-                  Sign Up
-              </a>
-                <a href="/auth/logout" className="navbar-item">
-                  Log Out
-              </a>
+                {isLoggedIn &&
+                  <>
+                    <a href="/logged/mystat" className="navbar-item">
+                      MyStats
+                    </a>
+                    <a href="/logged/settings" className="navbar-item">
+                      Account Settings
+                    </a>
+                    <hr className="navbar-divider" />
+                    <a href="/auth/logout" className="navbar-item">
+                      Log Out
+                    </a>
+                  </>
+                }
+
+                {!isLoggedIn &&
+                  <>
+                    <a href="/auth/login" className="navbar-item">
+                      Log In
+                    </a>
+                    <a href="/auth/signon" className="navbar-item">
+                      Sign Up
+                    </a>
+                  </>
+                }
+
               </div>
             </div>
           </div>

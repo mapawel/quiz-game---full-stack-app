@@ -60,14 +60,16 @@ app.use(flash({ sessionKeyName: 'flashMessage', useCookieSession: true }));
 app.use(async (req, res, next) => {
   try {
     if (req.session.user) {
-      const currentUser = await User.findById(req.session.user._id).exec()
+      const currentUser = await User.findById(req.session.user._id).exec();
+      if (!currentUser) next()
       req.session.user = currentUser;
-      res.locals.isLoggedIn = currentUser.isLoggedIn
-      req.session.currentGame = ({ ...req.session.currentGame })
+      res.locals.isLoggedIn = currentUser.isLoggedIn;
+      res.locals.userName = currentUser.name;
+      req.session.currentGame = ({ ...req.session.currentGame });
     }
     next();
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 })
 

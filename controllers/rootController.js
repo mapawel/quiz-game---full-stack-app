@@ -27,8 +27,6 @@ module.exports.getStart = async (req, res, next) => {
   }
   res.render('index', {
     title: 'The Quiz Game',
-    userName: 'test',
-    // userName: req.session.user.name,
     resultsTables: {
       winners,
       restPlayers
@@ -62,7 +60,6 @@ module.exports.getResults = async (req, res, next) => {
 
   res.render('ResultsView', {
     title: 'The Quiz Game - results',
-    userName: req.session.user.name,
     page,
     results,
     isLoadingDisabled,

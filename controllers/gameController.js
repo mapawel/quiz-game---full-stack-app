@@ -34,7 +34,6 @@ module.exports.getPrepareGame = async (req, res, next) => {
     if (err) console.log(err)
     res.render('game/PrepareGameView', {
       title: 'The Quiz Game - preparing ...',
-      userName: req.session.user.name,
     })
   })
 }
@@ -66,7 +65,6 @@ module.exports.getPlayGame = async (req, res, next) => {
         const bestWinFormatedTime = moment(bestWinTime, "x").format("mm:ss")
         res.render('game/PlayGameView', {
           title: 'The Quiz Game - play ...',
-          userName: req.session.user.name,
           message,
           gameData: {
             question,
@@ -166,7 +164,6 @@ module.exports.getFinishGame = async (req, res, next) => {
       if (err) console.log(err)
       res.render('game/FinishGameView', {
         title: 'The Quiz Game',
-        userName: req.session.user.name,
         message,
         stats,
       })
