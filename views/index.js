@@ -5,16 +5,16 @@ import Header from './components/organizms/Header';
 import Winners from './components/organizms/Winners';
 import MyStats from './components/organizms/MyStats';
 
-const Root = ({ userName, isLoggedIn, title, resultsTables, message }) => (
+const Root = ({ userName, isLoggedIn, avatar, title, resultsTables, message }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
     {message &&
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">
           <div className="column is-half">
-            <div className="notification is-warning">
+            <div className="notification is-warning self-close">
               <button className="delete"></button>
               <div className="block">
                 {message}

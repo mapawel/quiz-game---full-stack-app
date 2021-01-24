@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = ({ userName = 'Guest', isLoggedIn }) => (
+const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
   <nav className="navbar is-fixed" role="navigation" aria-label="main navigation">
     <div className="container is-widescreen">
       <div className="navbar-brand mr-3">
@@ -34,12 +34,16 @@ const Navbar = ({ userName = 'Guest', isLoggedIn }) => (
           <div className="level is-flex is-justify-content-flex-end">
             {isLoggedIn ? (
               <p className="has-text-primary is-size-7 has-text-centered has-text-weight-bold is-italic mr-3">User Logged In!</p>
-              ) : (
-              <p className="has-text-primary is-size-7 has-text-centered has-text-weight-bold is-italic mr-3">Guest Account</p>
-            )
+            ) : (
+                <p className="has-text-primary is-size-7 has-text-centered has-text-weight-bold is-italic mr-3">Guest Account</p>
+              )
             }
             <figure className="image is-48x48 menu-avatar">
-              <img src="/images/guestUser.svg" />
+              {avatar ? (
+                <img src={`/${avatar}`} />
+              ) : (
+                  <img src="/images/guestUser.svg" />
+                )}
             </figure>
 
             <div className="navbar-item has-dropdown is-hoverable">

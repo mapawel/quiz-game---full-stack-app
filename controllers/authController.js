@@ -5,10 +5,12 @@ const { capitalize } = require('../helpers/capitalize');
 const { generateToken } = require('../helpers/generateToken');
 const nodemailer = require('nodemailer');
 
+
 if (dotenv.error) {
   throw dotenv.error
   console.log(dotenv.error)
 }
+
 
 let transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -75,6 +77,8 @@ module.exports.getConfirmSignUp = async (req, res, next) => {
 
 module.exports.postSignUp = async (req, res, next) => {
   const { name, email, password, confirmpassword, transfer } = req.body;
+  const avatar = req.file ? req.file.path : 'null';
+  console.log(req.file)
   if (transfer === 'true') {
     return res.redirect('/auth/signuptransfer')
   } else if (transfer === 'false') {
@@ -86,7 +90,7 @@ module.exports.postSignUp = async (req, res, next) => {
   const checkedSession = req.session.user || {};
   if (isMailInDB || isNameInDB && isNameInDB.name !== checkedSession.name) {
     if (isMailInDB) message = [...message, 'This e-mail address exists in our base. Please Log In using it or Sign Up using another e-mail address'];
-    if (isNameInDB && isNameInDB.name !== req.session.user.name) message = [...message, 'User with this name exists in our base. Please chose the other nick-name for more clear score tables'];
+    if (isNameInDB && isNameInDB.name !== checkedSession.name) message = [...message, 'User with this name exists in our base. Please chose the other nick-name for more clear score tables'];
     return res.render('auth/SignUpView.js', {
       title: 'The Quiz Game - sign up',
       message: message.join(',  '),
@@ -103,6 +107,7 @@ module.exports.postSignUp = async (req, res, next) => {
     ...currentUserData,
     name: capitalize(name),
     email,
+    avatar,
     password: encryptedPass,
     isSignedUp: false,
     isLoggedIn: false,

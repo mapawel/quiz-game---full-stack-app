@@ -52,6 +52,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(session(userSession));
 app.use(flash({ sessionKeyName: 'flashMessage', useCookieSession: true }));
 
@@ -65,6 +66,7 @@ app.use(async (req, res, next) => {
       req.session.user = currentUser;
       res.locals.isLoggedIn = currentUser.isLoggedIn;
       res.locals.userName = currentUser.name;
+      res.locals.avatar = currentUser.avatar;
       req.session.currentGame = ({ ...req.session.currentGame });
     }
     next();

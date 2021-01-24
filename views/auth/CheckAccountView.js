@@ -2,11 +2,11 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const CheckAccount = ({ userName, title, isLoggedIn, message }) => (
+const CheckAccount = ({ userName, title, avatar, isLoggedIn, message, avatar }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">

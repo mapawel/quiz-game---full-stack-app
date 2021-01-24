@@ -2,11 +2,11 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const SignUp = ({ userName, title, message, inputValues: { name, email, password, confirmpassword }, isLoggedIn, transfer, canTransfer }) => (
+const SignUp = ({ userName, title, avatar, message, inputValues: { name, email, password, confirmpassword }, isLoggedIn, transfer, canTransfer }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar}/>
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">
@@ -41,7 +41,7 @@ const SignUp = ({ userName, title, message, inputValues: { name, email, password
                     </form>
                   </>
                 }
-                <form className="fled" method="POST" action="/auth/signup" >
+                <form className="fled" method="POST" action="/auth/signup" enctype="multipart/form-data">
                   <input type="hidden" name="transfer" value={transfer ? "proceed" : "null"} />
                   <label className="label" htmlFor="name">*name:</label>
                   <div className="control">

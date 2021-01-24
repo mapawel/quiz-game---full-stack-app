@@ -2,11 +2,11 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const NewPass = ({ userName, isLoggedIn, title, resetToken, userId }) => (
+const NewPass = ({ userName, isLoggedIn, avatar, title, resetToken, userId }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar}/>
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">

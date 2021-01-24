@@ -3,7 +3,7 @@ import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 import Clock from '../components/organizms/Clock';
 
-const PlayGame = ({ userName, title, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
+const PlayGame = ({ userName, title, avatar, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
   maxScoreIfNotWin, bestWinFormatedTime }, isLoggedIn }) => {
     let userResult = '';
     if (maxScoreIfNotWin*1 === 1) userResult = `${maxScoreIfNotWin} point`;
@@ -14,7 +14,7 @@ const PlayGame = ({ userName, title, message, gameData: { question, answers, id 
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar}/>
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-desktop is-vcentered">
