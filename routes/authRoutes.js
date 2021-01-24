@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const quitIfSignedUp = require('../middlewares/quitIfSignedUp');
+const quitIfNotSessionUser = require('../middlewares/quitIfNotSessionUser');
+const quitIfNotLoggedIn = require('../middlewares/quitIfNotLogged');
+const quitIfLoggedIn = require('../middlewares/quitIfLogged');
 
 
 router.get('/', authController.getCheckAccount);
@@ -10,13 +13,23 @@ router.get('/signup/:signUpToken', quitIfSignedUp, authController.getConfirmSign
 
 router.get('/signup', quitIfSignedUp, authController.getSignUp);
 
-router.post('/signup', authController.postSignUp);
+router.get('/signuptransfer', quitIfSignedUp, quitIfNotSessionUser, authController.getSignUpTransfer);
 
-router.get('/login', authController.getLogIn);
+router.post('/signup', quitIfSignedUp, authController.postSignUp);
 
-router.post('/login', authController.postLogIn);
+router.get('/login', quitIfLoggedIn, authController.getLogIn);
 
-router.get('/logout', authController.getLogOut);
+router.post('/login', quitIfLoggedIn, authController.postLogIn);
+
+router.get('/logout', quitIfNotLoggedIn, authController.getLogOut);
+
+router.get('/resetpass/:resetToken', authController.getResetPassConfirm);
+
+router.get('/resetpass', authController.getResetPass);
+
+router.post('/resetpass', authController.postResetPass);
+
+router.post('/newpass', authController.postNewPass);
 
 module.exports = router;
 

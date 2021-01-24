@@ -20,10 +20,10 @@ const CheckAccount = ({ userName, title, isLoggedIn, message }) => (
               ) : (
                   <>
                     <div className="block">
-                      You are not signed in.
+                      You are not logged in.
                   </div>
                     <div className="block">
-                      You can play as a guest however after signed in you will have full statistics and comparisions to the other players.
+                      You can play as a guest however after logg in you will have full statistics and comparisions to the other players.
                   </div>
                     <div className="block">
                       To play as a guest just put your nick-name on and press <b>start</b> or use <b>log in</b> / <b>sign up</b> buttons.

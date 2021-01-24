@@ -1,17 +1,22 @@
+const dotenv = require('dotenv').config();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { capitalize } = require('../helpers/capitalize');
-const crypto = require('crypto');
 const { generateToken } = require('../helpers/generateToken');
 const nodemailer = require('nodemailer');
 
+if (dotenv.error) {
+  throw dotenv.error
+  console.log(dotenv.error)
+}
+
 let transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   secure: true,
   auth: {
-    user: "michalpawlowski2020@gmail.com",
-    pass: "" // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASSWORD,
   },
   tls: {
     rejectUnauthorized: false
@@ -37,6 +42,19 @@ module.exports.getSignUp = async (req, res, next) => {
     title: 'The Quiz Game - sign up',
     message,
     inputValues: { name: '', email: '', password: '', confirmpassword: '' },
+    transfer: false,
+    canTransfer: req.session.user ? true : false,
+  })
+}
+
+module.exports.getSignUpTransfer = async (req, res, next) => {
+  const [message] = await req.consumeFlash('authInfo');
+  const { name } = req.session.user;
+  res.render('auth/SignUpView.js', {
+    title: 'The Quiz Game - sign up',
+    message,
+    inputValues: { name, email: '', password: '', confirmpassword: '' },
+    transfer: true,
   })
 }
 
@@ -56,13 +74,19 @@ module.exports.getConfirmSignUp = async (req, res, next) => {
 }
 
 module.exports.postSignUp = async (req, res, next) => {
+  const { name, email, password, confirmpassword, transfer } = req.body;
+  if (transfer === 'true') {
+    return res.redirect('/auth/signuptransfer')
+  } else if (transfer === 'false') {
+    return res.redirect('/auth/signup')
+  }
   let message = [];
-  const { name, email, password, confirmpassword } = req.body;
   const isMailInDB = await User.findOne({ email }).exec();
   const isNameInDB = await User.findOne({ name: capitalize(name) }).exec();
-  if (isMailInDB || isNameInDB) {
+  const checkedSession = req.session.user || {};
+  if (isMailInDB || isNameInDB && isNameInDB.name !== checkedSession.name) {
     if (isMailInDB) message = [...message, 'This e-mail address exists in our base. Please Log In using it or Sign Up using another e-mail address'];
-    if (isNameInDB) message = [...message, 'User with this name exists in our base. Please chose the other nick-name for more clear score tables'];
+    if (isNameInDB && isNameInDB.name !== req.session.user.name) message = [...message, 'User with this name exists in our base. Please chose the other nick-name for more clear score tables'];
     return res.render('auth/SignUpView.js', {
       title: 'The Quiz Game - sign up',
       message: message.join(',  '),
@@ -73,7 +97,10 @@ module.exports.postSignUp = async (req, res, next) => {
   const encryptedPass = await bcrypt.hash(password, salt);
   const signUpToken = await generateToken()
 
+  const currentUserData = transfer === 'proceed' && req.session.user ? req.session.user.toObject() : {};
+  console.log(currentUserData)
   const userData = {
+    ...currentUserData,
     name: capitalize(name),
     email,
     password: encryptedPass,
@@ -92,7 +119,7 @@ module.exports.postSignUp = async (req, res, next) => {
       res.redirect('/auth/login');
     })
   } else {
-    const user = await User.findOneAndUpdate({ _id: req.session.user._id }, userData, { useFindAndModify: false }).exec()
+    const user = await User.findOneAndReplace({ _id: req.session.user._id }, userData, { useFindAndModify: false }).exec()
     if (!user) {
       req.session.destroy((err) => {
         if (err) console.log(err);
@@ -111,8 +138,6 @@ module.exports.postSignUp = async (req, res, next) => {
     <p><a href="http://localhost:8000/auth/signup/${signUpToken}">Click this link to confirm</a></p>
     <p>If it\'s someone\'s mistake and you don\'t intend to sign up in QUIZ GAME, just ignore this message, we won\'t use your e-mail address.</p>`,
   })
-
-
 }
 
 module.exports.getLogIn = async (req, res, next) => {
@@ -161,4 +186,89 @@ module.exports.getLogOut = async (req, res, next) => {
     if (err) console.log(err);
     res.redirect('/')
   })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports.getResetPass = async (req, res, next) => {
+  const [message] = await req.consumeFlash('authInfo');
+  res.render('auth/ResetPassView.js', {
+    title: 'The Quiz Game - reseting',
+    inputValues: { email: '', },
+    message,
+  })
+}
+
+module.exports.postResetPass = async (req, res, next) => {
+  const { email } = req.body;
+  const resetingUser = await User.findOne({ email }).exec()
+  if (!resetingUser) {
+    return res.render('auth/ResetPassView.js', {
+      title: 'The Quiz Game - reseting',
+      inputValues: { email },
+      message: 'We don\'t have this e-mail address in the base. Type a correct one.'
+    })
+  }
+  const resetToken = await generateToken()
+  resetingUser.resetToken = resetToken;
+  resetingUser.resetTokenExpiration = Date.now() + 3600000,
+    await resetingUser.save()
+  await req.flash('authInfo', 'OK - now confirm your reset request via your e-mail address (check also SPAM folder).');
+  res.redirect('/auth/resetpass')
+  transporter.sendMail({
+    from: '"QUIZ GAME" <test@test.pl>',
+    to: email,
+    subject: "reseting password ...",
+    html: `
+    <p> You requested to reset a password for the account in QUIZ GAME connected to this e-mail address: ${email}</p>
+    <p><a href="http://localhost:8000/auth/resetpass/${resetToken}">Click this link to reset.</a></p>`
+  })
+}
+
+
+module.exports.getResetPassConfirm = async (req, res, next) => {
+  const { resetToken } = req.params;
+  const resetingUser = await User.findOneAndUpdate({ resetToken, resetTokenExpiration: { $gt: Date.now() } }, { useFindAndModify: false }).exec()
+  if (!resetingUser) {
+    req.flash('authInfo', 'Something went wrong, try again.');
+    return res.redirect('/auth/resetpass');
+  }
+  res.render('auth/NewPassView.js', {
+    title: 'The Quiz Game - reseting',
+    resetToken,
+    userId: resetingUser._id.toString(),
+  })
+}
+
+module.exports.postNewPass = async (req, res, next) => {
+  const { resetToken, userId, password, confirmpassword } = req.body;
+  console.log(resetToken)
+  console.log(userId)
+  const resetingUser = await User.findOne({
+    resetToken,
+    resetTokenExpiration: { $gt: Date.now() },
+    _id: userId
+  }).exec()
+  if (!resetingUser) {
+    req.flash('authInfo', 'Something went wrong, try again. ??');
+    return res.redirect('/auth/resetpass');
+  }
+  const salt = await bcrypt.genSalt(12);
+  const encryptedPass = await bcrypt.hash(password, salt);
+  resetingUser.password = encryptedPass;
+  resetingUser.resetToken = null;
+  resetingUser.resetTokenExpiration = null;
+  await resetingUser.save()
+  req.flash('authInfo', 'Your password has been reseted.');
+  res.redirect('/auth/login');
 }

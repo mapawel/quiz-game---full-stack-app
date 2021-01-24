@@ -2,7 +2,7 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const SignUp = ({ userName, title, message, inputValues: { name, email, password, confirmpassword }, isLoggedIn }) => (
+const SignUp = ({ userName, title, message, inputValues: { name, email, password, confirmpassword }, isLoggedIn, transfer, canTransfer }) => (
   <HeadTemplate
     title={title}
   >
@@ -22,19 +22,27 @@ const SignUp = ({ userName, title, message, inputValues: { name, email, password
                 </div>
               </>
             }
-            {!isLoggedIn && message &&
-              <div className="level">
-                <a href="/" className="level left">
-                  <button className="button is-primary">start page</button>
-                </a>
-                <a href="/game/prepare" className="level right">
-                  <button className="button is-success">play game</button>
-                </a>
-              </div>
-            }
             {!isLoggedIn &&
               <div className="box">
+                <p className="is-size-6 is-size-5-desktop has-text-centered has-text-weight-bold mb-3">
+                  {transfer ? 'Sign Up for the account with tranfer:' : 'Sign Up for a NEW registered account:'}
+                </p>
+                {canTransfer &&
+                  <>
+                    <p className="subtitle is-size-7 is-size-6-desktop has-text-grey has-text-centered is-italic mb-5">
+                      {transfer ? '- your reslts from Guest Account will be saved -' : '- your results from Guest Account will be lost -'}
+                    </p>
+
+                    <form className="fled mb-6" method="POST" action="/auth/signup" >
+                      <input type="hidden" name="transfer" value={transfer ? "false" : "true"} />
+                      <button type="submit" className="button is-primary is-small is-fullwidth">
+                        {transfer ? 'back to fresh sign up form for a new account' : 'transfer my data from guest account to registered account'}
+                      </button>
+                    </form>
+                  </>
+                }
                 <form className="fled" method="POST" action="/auth/signup" >
+                  <input type="hidden" name="transfer" value={transfer ? "proceed" : "null"} />
                   <label className="label" htmlFor="name">*name:</label>
                   <div className="control">
                     <input className="input is-primary" name="name" id="name" defaultValue={name} type="text" placeholder="John / Jane" autoComplete="nope" />

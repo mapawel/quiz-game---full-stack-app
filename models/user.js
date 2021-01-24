@@ -65,6 +65,8 @@ const userSchema = new Schema({
   },
   signUpToken: String,
   signUpTokenExpiration: Number,
+  resetToken: String,
+  resetTokenExpiration: Number,
 })
 
 module.exports = mongoose.model('User', userSchema);
