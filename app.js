@@ -11,6 +11,7 @@ const User = require('./models/user');
 const rootRoutes = require('./routes/rootRoutes');
 const authRoutes = require('./routes/authRoutes');
 const gameRoutes = require('./routes/gameRoutes');
+const loggedRoutes = require('./routes/loggedRoutes');
 
 if (dotenv.error) {
   throw dotenv.error
@@ -82,6 +83,7 @@ app.use((req, res, next) => {
 
 app.use('/', rootRoutes);
 app.use('/auth', authRoutes);
+app.use('/logged', loggedRoutes);
 app.use('/game', gameRoutes);
 
 

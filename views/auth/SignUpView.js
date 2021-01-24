@@ -2,7 +2,7 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const SignUp = ({ userName, title, avatar, message, inputValues: { name, email, password, confirmpassword }, isLoggedIn, transfer, canTransfer }) => (
+const SignUp = ({ userName, title, avatar, message, inputValues: { name, email }, isLoggedIn, transfer, canTransfer }) => (
   <HeadTemplate
     title={title}
   >
@@ -57,11 +57,11 @@ const SignUp = ({ userName, title, avatar, message, inputValues: { name, email, 
                   </div>
                   <label className="label" htmlFor="password">*password:</label>
                   <div className="control">
-                    <input className="input is-primary" name="password" id="password" defaultValue={password} type="password" placeholder="min 8 characters" />
+                    <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
                   </div>
                   <label className="label" htmlFor="confirmpassword">*confrm password:</label>
                   <div className="control">
-                    <input className="input is-primary" name="confirmpassword" id="confirmpassword" defaultValue={confirmpassword} type="password" placeholder="the same password" />
+                    <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same password" />
                   </div>
                   <button type="submit" className="button is-primary">Sign Up</button>
                 </form>
