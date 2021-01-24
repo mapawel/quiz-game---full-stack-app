@@ -2,17 +2,18 @@ const User = require('../models/user');
 const QuestionShort = require('../models/questionShort');
 const mongoose = require('mongoose');
 const moment = require('moment');
+const { capitalize } = require('../helpers/capitalize');
+
 
 
 module.exports.postGuestGame = async (req, res, next) => {
-  const capitalize = (string) => {
-    const strArr = string.toLowerCase().split(' ')
-    const x = strArr.map(str => str[0].toUpperCase() + str.slice(1))
-    return x.join(' ')
-  }
-
   const { name } = req.body;
   if (!req.session.user) {
+    const isNameInDB = await User.findOne({ name: capitalize(name) });
+    if (isNameInDB) {
+      await req.flash('authInfo', 'User with this name exists in our base. Please chose the other nick-name for more clear score tables');
+      return res.redirect('/auth')
+    }
     const guestUser = new User({ name: capitalize(name) })
     await guestUser.save()
     req.session.user = guestUser

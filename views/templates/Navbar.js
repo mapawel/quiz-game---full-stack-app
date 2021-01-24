@@ -65,7 +65,7 @@ const Navbar = ({ userName = 'Guest', isLoggedIn }) => (
                     <a href="/auth/login" className="navbar-item">
                       Log In
                     </a>
-                    <a href="/auth/signon" className="navbar-item">
+                    <a href="/auth/signup" className="navbar-item">
                       Sign Up
                     </a>
                   </>

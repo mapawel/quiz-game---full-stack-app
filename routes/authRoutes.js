@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
+const quitIfSignedUp = require('../middlewares/quitIfSignedUp');
+
 
 router.get('/', authController.getCheckAccount);
 
-router.get('/signon', authController.getSignOn);
+router.get('/signup/:signUpToken', quitIfSignedUp, authController.getConfirmSignUp);
 
-router.post('/signon', authController.postSignOn);
+router.get('/signup', quitIfSignedUp, authController.getSignUp);
+
+router.post('/signup', authController.postSignUp);
 
 router.get('/login', authController.getLogIn);
 

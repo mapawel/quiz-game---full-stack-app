@@ -2,11 +2,11 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const FinishGame = ({ userName, title, message, stats: { pointsInCurrentGame, currentGameTime, winner, currentGameFormatedTime } }) => (
+const FinishGame = ({ userName, title, message, stats: { pointsInCurrentGame, currentGameTime, winner, currentGameFormatedTime }, isLoggedIn }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
     <section className="section">
       <div className="container is-widescreen">
         <div className="box mb-6">

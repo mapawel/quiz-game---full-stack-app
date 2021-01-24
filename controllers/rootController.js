@@ -3,6 +3,7 @@ const moment = require('moment');
 const RESULTS_PER_PAGE = 25;
 
 module.exports.getStart = async (req, res, next) => {
+  const [message] = await req.consumeFlash('authInfo');
   let winners = await User
     .find({ winnerQty: { $gt: 0 } })
     .sort({
@@ -29,8 +30,9 @@ module.exports.getStart = async (req, res, next) => {
     title: 'The Quiz Game',
     resultsTables: {
       winners,
-      restPlayers
-    }
+      restPlayers,
+    },
+    message,
   })
 }
 

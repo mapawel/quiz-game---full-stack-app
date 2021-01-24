@@ -2,11 +2,11 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const PrepareGame = ({ userName, title }) => (
+const PrepareGame = ({ userName, title, isLoggedIn }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
     <section className="section">
       <div className="container is-widescreen">
         <div className="box">

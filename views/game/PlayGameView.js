@@ -4,7 +4,7 @@ import Navbar from '../templates/Navbar';
 import Clock from '../components/organizms/Clock';
 
 const PlayGame = ({ userName, title, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
-  maxScoreIfNotWin, bestWinFormatedTime } }) => {
+  maxScoreIfNotWin, bestWinFormatedTime }, isLoggedIn }) => {
     let userResult = '';
     if (maxScoreIfNotWin*1 === 1) userResult = `${maxScoreIfNotWin} point`;
     else if (maxScoreIfNotWin*1 === 10) userResult = `WIN in ${bestWinFormatedTime}`;
@@ -14,7 +14,7 @@ const PlayGame = ({ userName, title, message, gameData: { question, answers, id 
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} />
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} />
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-desktop is-vcentered">
