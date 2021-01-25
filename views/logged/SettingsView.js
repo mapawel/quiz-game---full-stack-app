@@ -16,7 +16,6 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
                 <div className="notification is-warning">
                   <button className="delete"></button>
                   <div className="block">
-
                     {message}
                   </div>
                 </div>
@@ -30,7 +29,7 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
               <p className="is-size-7 is-size-6-desktop mb-4 has-text-weight-bold">
                 update basic data
               </p>
-              <form className="fled" method="POST" action="/auth/signup" enctype="multipart/form-data">
+              <form className="fled" method="POST" action="/logged/dataupdate" encType="multipart/form-data">
                 <input type="hidden" name="transfer" value="" />
                 <label className="label" htmlFor="name">*name:</label>
                 <div className="control">
@@ -42,7 +41,7 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
                 </div>
                 <label className="label" htmlFor="avatar">avatar / photo:</label>
                 <div className="control">
-                  <input className="input is-primary" name="avatar" id="avatar" type="file" placeholder="file ..." />
+                  <input className="input is-primary" name="avatarChange" id="avatar" type="file" placeholder="file ..." />
                 </div>
                 <button type="submit" className="button is-primary is-small">Udate</button>
               </form>
@@ -59,13 +58,15 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
                       <img src="/images/guestUser.svg" />
                     )}
                 </figure>
-                <button type="submit" className="button is-warning is-small">Remove</button>
+                <a href="/logged/removeavatar?delete=true" className="">
+                  <button type="submit" className="button is-warning is-small">Remove</button>
+                </a>
               </div>
 
               <p className="is-size-7 is-size-6-desktop my-4 has-text-weight-bold">
                 change your password
               </p>
-              <form className="fled" method="POST" action="/auth/signup" enctype="multipart/form-data">
+              <form className="fled" method="POST" action="/logged/changepassword">
                 <label className="label" htmlFor="oldpassword">*old password:</label>
                 <div className="control">
                   <input className="input is-primary" name="oldpassword" id="oldpassword" type="password" placeholder="min 8 characters" />
@@ -83,7 +84,9 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
               <p className="is-size-7 is-size-6-desktop my-4 has-text-weight-bold">
                 remove your registered account and all data permanently
               </p>
-              <button type="button" className="button is-warning is-small mb-5">DELETE THIS ACCOUNT</button>
+              <a href="/logged/removeaccount" className="">
+                <button type="button" className="button is-warning is-small mb-5">DELETE THIS ACCOUNT</button>
+              </a>
             </div>
 
           </div>

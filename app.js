@@ -47,7 +47,7 @@ app.set('view engine', 'js');
 app.engine('js', require('express-react-views').createEngine());
 
 
-
+// mongoose.set('debug', true)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

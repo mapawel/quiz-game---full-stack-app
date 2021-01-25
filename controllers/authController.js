@@ -62,7 +62,10 @@ module.exports.getSignUpTransfer = async (req, res, next) => {
 
 module.exports.getConfirmSignUp = async (req, res, next) => {
   const { signUpToken } = req.params;
-  const confirmedUser = await User.findOneAndUpdate({ signUpToken, signUpTokenExpiration: { $gt: Date.now() } }, { isSignedUp: true, isLoggedIn: true }, { useFindAndModify: false }).exec()
+  const confirmedUser = await User.findOneAndUpdate({ signUpToken, signUpTokenExpiration: { $gt: Date.now() } }, {
+    signUpToken: null,
+    signUpTokenExpiration: null,
+  }, { isSignedUp: true, isLoggedIn: true }, { useFindAndModify: false }).exec();
   if (!confirmedUser) {
     req.flash('authInfo', 'Something went wrong, try again or please sign up for a new account.');
     return res.redirect('/auth/signup');

@@ -12,6 +12,7 @@ const userSchema = new Schema({
     required: true,
     default: 'Guest',
   },
+  newEmail: String,
   password: {
     type: String,
   },
@@ -67,6 +68,8 @@ const userSchema = new Schema({
   signUpTokenExpiration: Number,
   resetToken: String,
   resetTokenExpiration: Number,
+  changMailToken: String,
+  changMailTokenExpiration: Number,
 })
 
 module.exports = mongoose.model('User', userSchema);

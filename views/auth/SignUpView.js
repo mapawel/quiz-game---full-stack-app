@@ -41,7 +41,7 @@ const SignUp = ({ userName, title, avatar, message, inputValues: { name, email }
                     </form>
                   </>
                 }
-                <form className="fled" method="POST" action="/auth/signup" enctype="multipart/form-data">
+                <form className="fled" method="POST" action="/auth/signup" encType="multipart/form-data">
                   <input type="hidden" name="transfer" value={transfer ? "proceed" : "null"} />
                   <label className="label" htmlFor="name">*name:</label>
                   <div className="control">
