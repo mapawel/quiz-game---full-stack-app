@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
-  <nav className="navbar is-fixed" role="navigation" aria-label="main navigation">
+  <nav className="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
     <div className="container is-widescreen">
       <div className="navbar-brand mr-3">
         <a className="navbar-item" href="/">
-          <h1 className="title is-4 has-text-primary is-family-secondary mr-2">Quiz Game</h1>
+          <h1 className="title is-3 has-text-primary is-family-secondary mr-2">Quiz Game</h1>
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-nav="navBarTop">
@@ -17,15 +17,15 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
 
       <div id="navBarTop" className="navbar-menu">
         <div className="navbar-start">
-          <div className="navbar-item mx-5">
+          <div className="navbar-item mx-3">
             <a href="/auth" className="button is-success is-outlined has-text-black">
               PLAY
             </a>
           </div>
-          <a href="/results" className="navbar-item mx-5">
+          <a href="/results" className="navbar-item mx-3">
             Results
               </a>
-          <a className="navbar-item mx-5">
+          <a className="navbar-item mx-3">
             About
               </a>
         </div>
@@ -51,7 +51,7 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
                 {userName}
               </a>
 
-              <div className="navbar-dropdown">
+              <div className="navbar-dropdown is-boxed">
                 {isLoggedIn &&
                   <>
                     <a href="/logged/mystat" className="navbar-item">

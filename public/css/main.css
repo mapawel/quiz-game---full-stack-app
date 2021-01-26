@@ -496,7 +496,7 @@ a.box:active {
 
 .button {
   background-color: white;
-  border-color: #dbdbdb;
+  border-color: white;
   border-width: 1px;
   color: #363636;
   cursor: pointer;
@@ -1812,7 +1812,7 @@ fieldset[disabled] .button.is-danger.is-inverted.is-outlined {
 .button[disabled],
 fieldset[disabled] .button {
   background-color: white;
-  border-color: #dbdbdb;
+  border-color: white;
   -webkit-box-shadow: none;
           box-shadow: none;
   opacity: 0.5;
@@ -1839,7 +1839,7 @@ fieldset[disabled] .button {
 
 .button.is-static {
   background-color: whitesmoke;
-  border-color: #dbdbdb;
+  border-color: white;
   color: #7a7a7a;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -2067,7 +2067,7 @@ fieldset[disabled] .button {
 
 .content blockquote {
   background-color: whitesmoke;
-  border-left: 5px solid #dbdbdb;
+  border-left: 5px solid white;
   padding: 1.25em 1.5em;
 }
 
@@ -2157,7 +2157,7 @@ fieldset[disabled] .button {
 
 .content table td,
 .content table th {
-  border: 1px solid #dbdbdb;
+  border: 1px solid white;
   border-width: 0 0 1px;
   padding: 0.5em 0.75em;
   vertical-align: top;
@@ -2744,13 +2744,13 @@ fieldset[disabled] .button {
 }
 
 .table {
-  background-color: white;
+  background-color: transparent;
   color: #363636;
 }
 
 .table td,
 .table th {
-  border: 1px solid #dbdbdb;
+  border: 2px solid white;
   border-width: 0 0 1px;
   padding: 0.5em 0.75em;
   vertical-align: top;
@@ -3365,7 +3365,7 @@ a.tag:hover {
 /* Bulma Form */
 .input, .textarea, .select select {
   background-color: white;
-  border-color: #dbdbdb;
+  border-color: white;
   border-radius: 4px;
   color: #363636;
 }
@@ -4308,7 +4308,7 @@ fieldset[disabled] .select select:hover {
 }
 
 .file-label:hover .file-name {
-  border-color: #d5d5d5;
+  border-color: #f9f9f9;
 }
 
 .file-label:active .file-cta {
@@ -4317,7 +4317,7 @@ fieldset[disabled] .select select:hover {
 }
 
 .file-label:active .file-name {
-  border-color: #cfcfcf;
+  border-color: #f2f2f2;
 }
 
 .file-input {
@@ -4332,7 +4332,7 @@ fieldset[disabled] .select select:hover {
 
 .file-cta,
 .file-name {
-  border-color: #dbdbdb;
+  border-color: white;
   border-radius: 4px;
   font-size: 1em;
   padding-left: 1em;
@@ -4346,7 +4346,7 @@ fieldset[disabled] .select select:hover {
 }
 
 .file-name {
-  border-color: #dbdbdb;
+  border-color: white;
   border-style: solid;
   border-width: 1px 1px 1px 0;
   display: block;
@@ -4712,7 +4712,7 @@ fieldset[disabled] .select select:hover {
 }
 
 .control.has-icons-left .icon, .control.has-icons-right .icon {
-  color: #dbdbdb;
+  color: white;
   height: 2.5em;
   pointer-events: none;
   position: absolute;
@@ -5227,7 +5227,7 @@ button.dropdown-item.is-active {
 }
 
 .media .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5248,7 +5248,7 @@ button.dropdown-item.is-active {
 }
 
 .media + .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
   margin-top: 1rem;
   padding-top: 1rem;
 }
@@ -5332,7 +5332,7 @@ button.dropdown-item.is-active {
 }
 
 .menu-list li ul {
-  border-left: 1px solid #dbdbdb;
+  border-left: 1px solid white;
   margin: 0.75em;
   padding-left: 0.75em;
 }
@@ -5550,7 +5550,7 @@ button.dropdown-item.is-active {
 }
 
 .message-body {
-  border-color: #dbdbdb;
+  border-color: white;
   border-radius: 4px;
   border-style: solid;
   border-width: 0 0 0 4px;
@@ -5653,7 +5653,7 @@ button.dropdown-item.is-active {
 }
 
 .modal-card-head {
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid white;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
@@ -5672,7 +5672,7 @@ button.dropdown-item.is-active {
 .modal-card-foot {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid white;
 }
 
 .modal-card-foot .button:not(:last-child) {
@@ -6477,7 +6477,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 .navbar-link:hover,
 .navbar-link.is-active {
   background-color: #fafafa;
-  color: #3273dc;
+  color: #7FAB96;
 }
 
 .navbar-item {
@@ -6537,7 +6537,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 }
 
 .navbar-link:not(.is-arrowless)::after {
-  border-color: #3273dc;
+  border-color: #7FAB96;
   margin-top: -0.375em;
   right: 1.125em;
 }
@@ -6684,7 +6684,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
             transform: rotate(135deg) translate(0.25em, -0.25em);
   }
   .navbar-item.has-dropdown-up .navbar-dropdown {
-    border-bottom: 2px solid #dbdbdb;
+    border-bottom: 2px solid white;
     border-radius: 6px 6px 0 0;
     border-top: none;
     bottom: 100%;
@@ -6724,7 +6724,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
     background-color: white;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    border-top: 2px solid #dbdbdb;
+    border-top: 2px solid white;
     -webkit-box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
             box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
     display: none;
@@ -6817,7 +6817,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
   }
   a.navbar-item.is-active,
   .navbar-link.is-active {
-    color: #0a0a0a;
+    color: #7FAB96;
   }
   a.navbar-item.is-active:not(:focus):not(:hover),
   .navbar-link.is-active:not(:focus):not(:hover) {
@@ -6891,7 +6891,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 .pagination-previous,
 .pagination-next,
 .pagination-link {
-  border-color: #dbdbdb;
+  border-color: white;
   color: #363636;
   min-width: 2.5em;
 }
@@ -6919,8 +6919,8 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 .pagination-previous[disabled],
 .pagination-next[disabled],
 .pagination-link[disabled] {
-  background-color: #dbdbdb;
-  border-color: #dbdbdb;
+  background-color: white;
+  border-color: white;
   -webkit-box-shadow: none;
           box-shadow: none;
   color: #7a7a7a;
@@ -7209,7 +7209,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 }
 
 .panel-tabs a {
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid white;
   margin-bottom: -1px;
   padding: 0.5em;
 }
@@ -7321,7 +7321,7 @@ label.panel-block:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom-color: #dbdbdb;
+  border-bottom-color: white;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   color: #292426;
@@ -7354,7 +7354,7 @@ label.panel-block:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom-color: #dbdbdb;
+  border-bottom-color: white;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   display: -webkit-box;
@@ -7419,12 +7419,12 @@ label.panel-block:hover {
 
 .tabs.is-boxed a:hover {
   background-color: whitesmoke;
-  border-bottom-color: #dbdbdb;
+  border-bottom-color: white;
 }
 
 .tabs.is-boxed li.is-active a {
   background-color: white;
-  border-color: #dbdbdb;
+  border-color: white;
   border-bottom-color: transparent !important;
 }
 
@@ -7437,7 +7437,7 @@ label.panel-block:hover {
 }
 
 .tabs.is-toggle a {
-  border-color: #dbdbdb;
+  border-color: white;
   border-style: solid;
   border-width: 1px;
   margin-bottom: 0;
@@ -12757,6 +12757,51 @@ html {
   border-radius: 50%;
 }
 
+.section {
+  padding: 0;
+}
+
+.section:first-of-type {
+  padding-top: 100px;
+}
+
+.section:last-of-type {
+  padding-bottom: 200px;
+}
+
+@media screen and (max-width: 450px) {
+  .table td,
+  .table th {
+    padding: .2rem .1rem;
+  }
+}
+
+.curved-section {
+  padding: 100px 0;
+}
+
+.topcurve {
+  margin-top: -150px;
+  background-image: url("/images/uppercurve.svg");
+  width: 100%;
+  height: 400px;
+  background-position-x: 50%;
+}
+
+.bottomcurve {
+  margin-bottom: -200px;
+  background-image: url("/images/uppercurve.svg");
+  width: 100%;
+  height: 400px;
+  background-position-x: 50%;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.hero-body {
+  padding: 0;
+}
+
 .clock-wrapper {
   position: relative;
 }
@@ -12858,12 +12903,5 @@ html {
   height: 7px;
   background-color: #dddfd7;
   border-radius: 50%;
-}
-
-@media screen and (max-width: 450px) {
-  .table td,
-  .table th {
-    padding: .2rem .1rem;
-  }
 }
 /*# sourceMappingURL=main.css.map */

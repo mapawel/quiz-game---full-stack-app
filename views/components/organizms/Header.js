@@ -15,7 +15,7 @@ const Header = () => (
             Let's try to test yourself in general knowledge. Can you join the winners?
           </h3>
           <a href="/auth" className="is-align-self-flex-end">
-            <button className="button is-success is-medium mr-5"><strong>PLAY</strong></button>
+            <button className="button is-success is-medium mr-5">PLAY</button>
           </a>
         </div>
       </div>

@@ -63,9 +63,11 @@ module.exports.getSignUpTransfer = async (req, res, next) => {
 module.exports.getConfirmSignUp = async (req, res, next) => {
   const { signUpToken } = req.params;
   const confirmedUser = await User.findOneAndUpdate({ signUpToken, signUpTokenExpiration: { $gt: Date.now() } }, {
+    isSignedUp: true,
+    isLoggedIn: true,
     signUpToken: null,
     signUpTokenExpiration: null,
-  }, { isSignedUp: true, isLoggedIn: true }, { useFindAndModify: false }).exec();
+  }, { useFindAndModify: false }).exec();
   if (!confirmedUser) {
     req.flash('authInfo', 'Something went wrong, try again or please sign up for a new account.');
     return res.redirect('/auth/signup');
@@ -80,8 +82,7 @@ module.exports.getConfirmSignUp = async (req, res, next) => {
 
 module.exports.postSignUp = async (req, res, next) => {
   const { name, email, password, confirmpassword, transfer } = req.body;
-  const avatar = req.file ? req.file.path : 'null';
-  console.log(req.file)
+  const avatar = req.file ? req.file.path : null;
   if (transfer === 'true') {
     return res.redirect('/auth/signuptransfer')
   } else if (transfer === 'false') {

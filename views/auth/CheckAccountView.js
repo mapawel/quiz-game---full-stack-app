@@ -2,7 +2,7 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const CheckAccount = ({ userName, title, avatar, isLoggedIn, message, avatar }) => (
+const CheckAccount = ({ userName, title, avatar, isLoggedIn, message }) => (
   <HeadTemplate
     title={title}
   >
@@ -23,7 +23,7 @@ const CheckAccount = ({ userName, title, avatar, isLoggedIn, message, avatar }) 
                       You are not logged in.
                   </div>
                     <div className="block">
-                      You can play as a guest however after logg in you will have full statistics and comparisions to the other players.
+                      You can play as a guest however after log in you will have full statistics and comparisions to the other players.
                   </div>
                     <div className="block">
                       To play as a guest just put your nick-name on and press <b>start</b> or use <b>log in</b> / <b>sign up</b> buttons.
@@ -36,7 +36,7 @@ const CheckAccount = ({ userName, title, avatar, isLoggedIn, message, avatar }) 
               <form className="fled" method="POST" action="/game/prepare">
                 <label className="label" htmlFor="nick">my nick-name is:</label>
                 <div className="control">
-                  <input className="input is-primary" name="name" id="nick" type="text" placeholder="nick" />
+                  <input className="input is-primary" name="name" id="nick" type="text" placeholder="nick" autoComplete="off" />
                 </div>
                 <button type="submit" className="button is-primary">start game</button>
               </form>

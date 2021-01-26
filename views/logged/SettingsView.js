@@ -2,7 +2,7 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 
-const Settings = ({ userName, title, avatar, message, inputValues: { name, email }, isLoggedIn }) => (
+const Settings = ({ userName, title, avatar, message, inputValues: { name, email }, isLoggedIn, deleteConfirmForm }) => (
   <HeadTemplate
     title={title}
   >
@@ -84,9 +84,20 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
               <p className="is-size-7 is-size-6-desktop my-4 has-text-weight-bold">
                 remove your registered account and all data permanently
               </p>
-              <a href="/logged/removeaccount" className="">
-                <button type="button" className="button is-warning is-small mb-5">DELETE THIS ACCOUNT</button>
-              </a>
+              {deleteConfirmForm ? (
+                <form className="fled" method="POST" action="/logged/removeaccount">
+                <label className="label" htmlFor="password">confirm by password:</label>
+                  <div className="control">
+                    <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
+                  </div>
+                  <button type="submit" className="button is-warning is-small">Delete</button>
+                </form>
+              ) : (
+                  <a href="/logged/removeaccount" className="">
+                    <button type="button" className="button is-warning is-small mb-5">DELETE THIS ACCOUNT</button>
+                  </a>
+                )
+              }
             </div>
 
           </div>

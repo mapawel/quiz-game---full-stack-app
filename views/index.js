@@ -3,9 +3,9 @@ import HeadTemplate from './templates/HeadTemplate';
 import Navbar from './templates/Navbar';
 import Header from './components/organizms/Header';
 import Winners from './components/organizms/Winners';
-import MyStats from './components/organizms/MyStats';
+import MainStats from './components/organizms/MainStats';
 
-const Root = ({ userName, isLoggedIn, avatar, title, resultsTables, message }) => (
+const Root = ({ userName, isLoggedIn, avatar, title, resultsTables, message, mainStats }) => (
   <HeadTemplate
     title={title}
   >
@@ -26,7 +26,7 @@ const Root = ({ userName, isLoggedIn, avatar, title, resultsTables, message }) =
     }
     <Header />
     <Winners resultsTables={resultsTables} />
-    <MyStats />
+    <MainStats mainStats={mainStats} />
   </HeadTemplate>
 )
 

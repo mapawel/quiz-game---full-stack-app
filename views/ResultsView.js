@@ -8,7 +8,7 @@ const Results = ({ userName, title, results, page, isLoadingDisabled, isLoggedIn
     title={title}
   >
     <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar}/>
-      <ResultsTables results={results} page={page} isLoadingDisabled={isLoadingDisabled}  />
+      <ResultsTables userName={userName} results={results} page={page} isLoadingDisabled={isLoadingDisabled}  />
   </HeadTemplate>
 )
 

@@ -129,6 +129,23 @@ module.exports.changeAvatar = async (req, res, next) => {
   next()
 }
 
+
+module.exports.postChangePassword = async (req, res, next) => {
+  const { oldpassword, password, confirmpassword } = req.body;
+  const isPassMatching = await bcrypt.compare(oldpassword, req.session.user.password);
+  if (isPassMatching) {
+    const salt = await bcrypt.genSalt(12);
+    const encryptedPass = await bcrypt.hash(password, salt);
+    await User.findOneAndUpdate({ _id: req.session.user._id }, {
+      password: encryptedPass,
+    }, { useFindAndModify: false }).exec()
+    req.message = ['Your password changed'];
+  } else {
+    req.message = ['Your current password incorect!'];
+  };
+  next();
+}
+
 module.exports.updateMessage = async (req, res, next) => {
   req.message = req.message || []
   if (req.message.length === 0) req.message = ['No changes']
@@ -139,27 +156,44 @@ module.exports.updateMessage = async (req, res, next) => {
   })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports.getRemoveAvatar = async (req, res, next) => {
-
-}
-
-module.exports.getChangePassword = async (req, res, next) => {
-
-}
-
 module.exports.getRemoveAccount = async (req, res, next) => {
+  const { name, email } = req.session.user;
+  res.render('logged/settingsview', {
+    title: 'The Quiz Game - settings',
+    inputValues: {
+      name,
+      email,
+    },
+    deleteConfirmForm: true,
+    message: 'Confirm below by password to delete this account',
+  })
+}
 
+module.exports.postRemoveAccount = async (req, res, next) => {
+  const { name, email } = req.session.user;
+  const { password } = req.body;
+  const isPassMatching = await bcrypt.compare(password, req.session.user.password);
+  if (isPassMatching) {
+    await User.findOneAndDelete({ _id: req.session.user._id })
+    req.session.user = null;
+    await req.flash('authInfo', 'Account deleted, good bye...');
+    req.session.save((err) => {
+      if (err) console.log(err);
+      res.redirect('/')
+    })
+  } else {
+    res.render('logged/settingsview', {
+      title: 'The Quiz Game - settings',
+      inputValues: {
+        name,
+        email,
+      },
+      deleteConfirmForm: true,
+      message: 'Password incorrect - try again',
+    })
+  }
+}
+
+module.exports.getMyStat = async (req, res, next) => {
+  console.log('go')
 }

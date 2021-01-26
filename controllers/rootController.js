@@ -26,6 +26,21 @@ module.exports.getStart = async (req, res, next) => {
   if (winners.length > 0) {
     winners = winners.map(winner => ({ ...winner, ...{ bestWinFormatedTime: moment(winner.bestWinTime, "x").format("mm:ss") } }))
   }
+
+  const getUsersQty = User.countDocuments().exec();
+  const getWinnersQty = User.countDocuments({winnerQty: {$gt: 0}}).exec();
+  const getUserMaxWinQty = User.find({winnerQty: {$gt: 0}}).sort({winnerQty: -1}).limit(1).exec();
+  const getUserBestTime = User.find({winnerQty: {$gt: 0}}).sort({bestWinTime: 1}).limit(1).exec();
+  
+  const DBsearchResults = await Promise.all([getUsersQty, getWinnersQty, getUserMaxWinQty, getUserBestTime])
+  const usersQty = DBsearchResults[0]
+  const winnersQty = DBsearchResults[1]
+  const maxWinQty = DBsearchResults[2][0].winnerQty;
+  const inQtyGames = DBsearchResults[3][0].gamesPlaied;
+  const bestTime = DBsearchResults[3][0].bestWinTime;
+  const bestFormatedTime = moment(bestTime, "x").format("mm:ss");
+
+
   res.render('index', {
     title: 'The Quiz Game',
     resultsTables: {
@@ -33,6 +48,13 @@ module.exports.getStart = async (req, res, next) => {
       restPlayers,
     },
     message,
+    mainStats: {
+      usersQty,
+      winnersQty,
+      maxWinQty,
+      inQtyGames,
+      bestFormatedTime,
+    },
   })
 }
 

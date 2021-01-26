@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ResultsTables = ({ results, page, isLoadingDisabled }) => {
+const ResultsTables = ({ userName, results, page, isLoadingDisabled }) => {
   const pageLink = `/results?page=${+page + 1}`
   return (
     <section className="section">
@@ -28,7 +28,17 @@ const ResultsTables = ({ results, page, isLoadingDisabled }) => {
                     {results.length > 0 && results.map((user, index) => (
                       <tr key={index + user.email}>
                         <th className="tableCell"><p className="tableText" >{index + 1}</p></th>
-                        <td className="tableCell"><p className="tableText" >{user.name}</p></td>
+                        <td className="tableCell">
+                          <p
+                            className={`tableText ${user.name === userName ? 'has-text-weight-bold' : null}`} >
+                            {user.name}
+                            {user.name === userName ? (
+                              <span className="tag is-primary ml-2 is-size-7 p-1">!</span>
+                            ) : (
+                                null
+                              )}
+                          </p>
+                        </td>
                         <td className="tableCell"><p className="tableText" >{user.maxScoreIfNotWin}</p></td>
                         <td className="tableCell"><p className="tableText" >{user.avarageScore.toFixed(2)}</p></td>
                         <td className="tableCell"><p className="tableText" >{user.bestWinFormatedTime}</p></td>

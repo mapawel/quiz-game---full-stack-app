@@ -5,6 +5,12 @@ $dark: #dddfd7
 $success: #fdef25
 $warning: #EB6418
 $text: #292426
+$table-background-color: transparent
+$border: white
+$table-cell-border: 2px solid $border
+$navbar-item-hover-color: $primary
+$navbar-item-active-color: $primary
+$navbar-dropdown-arrow: $primary
 $family-primary: 'Cairo', sans-serif
 $family-secondary: 'Comfortaa', sans-serif
 $size-1: 5rem
@@ -39,6 +45,40 @@ html
   overflow: hidden
   border: 1px solid $primary
   border-radius: 50%
+
+.section
+  padding: 0
+  &:first-of-type
+    padding-top: 100px
+  &:last-of-type
+    padding-bottom: 200px
+
+@media screen and ( max-width: 450px )
+  .table td, .table th
+    padding: .2rem .1rem
+
+.curved-section
+  padding: 100px 0  
+
+.topcurve
+  margin-top: -150px
+  background-image: url('/images/uppercurve.svg')
+  width: 100%
+  height: 400px
+  background-position-x: 50%
+
+.bottomcurve
+  margin-bottom: -200px
+  background-image: url('/images/uppercurve.svg')
+  width: 100%
+  height: 400px
+  background-position-x: 50%
+  transform: rotate(180deg)
+
+.hero-body
+  padding: 0
+
+
 
 
 // clock
@@ -127,7 +167,3 @@ html
   height: 7px
   background-color: $dark
   border-radius: 50%
-
-@media screen and ( max-width: 450px )
-  .table td, .table th
-    padding: .2rem .1rem

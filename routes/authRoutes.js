@@ -19,7 +19,8 @@ const upload = multer({ storage });
 
 router.get('/', authController.getCheckAccount);
 
-router.get('/signup/:signUpToken', quitIfSignedUp, authController.getConfirmSignUp);
+// router.get('/signup/:signUpToken', quitIfSignedUp, authController.getConfirmSignUp);
+router.get('/signup/:signUpToken', authController.getConfirmSignUp);
 
 router.get('/signup', quitIfSignedUp, authController.getSignUp);
 
