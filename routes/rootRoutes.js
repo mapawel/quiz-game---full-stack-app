@@ -6,5 +6,7 @@ router.get('/', rootController.getStart);
 
 router.get('/results', rootController.getResults);
 
+router.get('/mystat', rootController.getMyStat);
+
 module.exports = router;
 

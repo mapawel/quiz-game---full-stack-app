@@ -20,6 +20,7 @@ $size-4: 2.5rem
 $size-5: 2rem
 $size-medium: 1.6rem
 $gap: 32px !default
+$desktop: 1050px + (2 * $gap)
 $fullhd: 1600px + (2 * $gap) !default
 // Import Bulma and Buefy styles
 @import "bulma/bulma"
@@ -53,6 +54,12 @@ html
   &:last-of-type
     padding-bottom: 200px
 
+.section-high
+  padding: 100px
+
+.box-wide
+  width: 100%
+
 @media screen and ( max-width: 450px )
   .table td, .table th
     padding: .2rem .1rem
@@ -78,7 +85,9 @@ html
 .hero-body
   padding: 0
 
-
+.box-dark
+  background-color: $dark
+  box-shadow: 0 0 30px -5px #BBBBBB
 
 
 // clock

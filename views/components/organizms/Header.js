@@ -5,8 +5,8 @@ const Header = () => (
     <div className="container is-widescreen mt-5">
       <div className="columns is-desktop is-vcentered">
         <div className="column is-three-fifths">
-          <figure className="image is-4by3">
-            <img className="header-img" src="/images/headerImage.svg" />
+          <figure className="image is-1by1">
+            <img className="header-img" src="/images/exams.svg" />
           </figure>
         </div>
         <div className="column is-flex is-flex-direction-column">

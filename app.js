@@ -44,7 +44,7 @@ const userSession = {
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'js');
-app.engine('js', require('express-react-views').createEngine());
+app.engine('js', require('express-react-views').createEngine({throwIfNamespace: false}));
 
 
 // mongoose.set('debug', true)

@@ -28,10 +28,10 @@ module.exports.getStart = async (req, res, next) => {
   }
 
   const getUsersQty = User.countDocuments().exec();
-  const getWinnersQty = User.countDocuments({winnerQty: {$gt: 0}}).exec();
-  const getUserMaxWinQty = User.find({winnerQty: {$gt: 0}}).sort({winnerQty: -1}).limit(1).exec();
-  const getUserBestTime = User.find({winnerQty: {$gt: 0}}).sort({bestWinTime: 1}).limit(1).exec();
-  
+  const getWinnersQty = User.countDocuments({ winnerQty: { $gt: 0 } }).exec();
+  const getUserMaxWinQty = User.find({ winnerQty: { $gt: 0 } }).sort({ winnerQty: -1 }).limit(1).exec();
+  const getUserBestTime = User.find({ winnerQty: { $gt: 0 } }).sort({ bestWinTime: 1 }).limit(1).exec();
+
   const DBsearchResults = await Promise.all([getUsersQty, getWinnersQty, getUserMaxWinQty, getUserBestTime])
   const usersQty = DBsearchResults[0]
   const winnersQty = DBsearchResults[1]
@@ -77,7 +77,7 @@ module.exports.getResults = async (req, res, next) => {
     .countDocuments()
     .exec()
   const isLoadingDisabled = (page * RESULTS_PER_PAGE) >= resultsQty;
-  
+
   if (results.length > 0) {
     results = results.map(user => ({ ...user, ...{ bestWinFormatedTime: moment(user.bestWinTime, "x").format("mm:ss") } }))
   }
@@ -87,5 +87,40 @@ module.exports.getResults = async (req, res, next) => {
     page,
     results,
     isLoadingDisabled,
+  })
+}
+
+module.exports.getMyStat = async (req, res, next) => {
+  const currentUser = req.session.user || {};
+  const { totalScore = 0, avarageScore = 0, winnerQty = 0, gamesPlaied = 0, bestWinTime = 0 } = currentUser;
+  const bestFormatedTime = moment(bestWinTime, "x").format("mm:ss");
+
+  const avgAllGamesPlaied = User.aggregate([{ $group: { _id: null, avarage: { $avg: "$gamesPlaied" } } }]).exec()
+  const avgAllScore = User.aggregate([{ $group: { _id: null, avarage: { $avg: "$avarageScore" } } }]).exec()
+  const avgWinTime = User.aggregate([
+    { $match: { winnerQty: { $gt: 0 } } },
+    { $group: { _id: null, avarage: { $avg: "$bestWinTime" } } }]).exec()
+
+  let promisesWithResults = {
+    names: [avgAllGamesPlaied, avgAllScore, avgWinTime],
+    values: [0, 0, 0],
+  }
+
+  const DBsearchResults = await Promise.all(promisesWithResults.names)
+  promisesWithResults.values = DBsearchResults.map((result, index) => result[0] ? promisesWithResults.values[index] = result[0].avarage : promisesWithResults.values[index])
+  const avgWinFormatedTime = moment(promisesWithResults.values[2], "x").format("mm:ss");
+
+  res.render('myStatView', {
+    title: 'The Quiz Game',
+    mainStats: {
+      totalScore,
+      avarageScore: avarageScore.toFixed(1),
+      winnerQty,
+      gamesPlaied,
+      bestFormatedTime,
+      avgAllGamesPlaied: promisesWithResults.values[0].toFixed(1),
+      avgAllScore: promisesWithResults.values[1].toFixed(1),
+      avgWinFormatedTime,
+    },
   })
 }
