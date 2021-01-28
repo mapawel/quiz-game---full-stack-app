@@ -27,19 +27,20 @@ module.exports.getStart = async (req, res, next) => {
     winners = winners.map(winner => ({ ...winner, ...{ bestWinFormatedTime: moment(winner.bestWinTime, "x").format("mm:ss") } }))
   }
 
-  const getUsersQty = User.countDocuments().exec();
-  const getWinnersQty = User.countDocuments({ winnerQty: { $gt: 0 } }).exec();
-  const getUserMaxWinQty = User.find({ winnerQty: { $gt: 0 } }).sort({ winnerQty: -1 }).limit(1).exec();
-  const getUserBestTime = User.find({ winnerQty: { $gt: 0 } }).sort({ bestWinTime: 1 }).limit(1).exec();
+  const usersQty = User.countDocuments().exec();
+  const winnersQty = User.countDocuments({ winnerQty: { $gt: 0 } }).exec();
+  const userWithMaxWinQty = User.findOne({ winnerQty: { $gt: 0 } }).sort({ winnerQty: -1 }).limit(1).exec();
+  const userBestTime = User.findOne({ winnerQty: { $gt: 0 } }).sort({ bestWinTime: 1 }).limit(1).exec();
 
-  const DBsearchResults = await Promise.all([getUsersQty, getWinnersQty, getUserMaxWinQty, getUserBestTime])
-  const usersQty = DBsearchResults[0]
-  const winnersQty = DBsearchResults[1]
-  const maxWinQty = DBsearchResults[2][0].winnerQty;
-  const inQtyGames = DBsearchResults[3][0].gamesPlaied;
-  const bestTime = DBsearchResults[3][0].bestWinTime;
-  const bestFormatedTime = moment(bestTime, "x").format("mm:ss");
+  let promisesWithResults = {
+    names: [usersQty, winnersQty, userWithMaxWinQty, userBestTime],
+    values: [0, 0, {}, { bestWinTime: 0 }],
+  }
 
+  const DBsearchResults = await Promise.all(promisesWithResults.names)
+  promisesWithResults.values = DBsearchResults.map((result, index) => result ? result : promisesWithResults.values[index])
+
+  const bestFormatedTime = moment(promisesWithResults.values[3].bestWinTime, "x").format("mm:ss");
 
   res.render('index', {
     title: 'The Quiz Game',
@@ -49,10 +50,10 @@ module.exports.getStart = async (req, res, next) => {
     },
     message,
     mainStats: {
-      usersQty,
-      winnersQty,
-      maxWinQty,
-      inQtyGames,
+      usersQty: promisesWithResults.values[0],
+      winnersQty: promisesWithResults.values[1],
+      maxWinQty: promisesWithResults.values[2].winnerQty,
+      inQtyGames: promisesWithResults.values[2].gamesPlaied,
       bestFormatedTime,
     },
   })
@@ -92,6 +93,10 @@ module.exports.getResults = async (req, res, next) => {
 
 module.exports.getMyStat = async (req, res, next) => {
   const currentUser = req.session.user || {};
+  if (!currentUser.isLoggedIn) {
+    await req.flash('authInfo', 'Please log in to see stats section.');
+    return res.redirect('/')
+  }
   const { totalScore = 0, avarageScore = 0, winnerQty = 0, gamesPlaied = 0, bestWinTime = 0 } = currentUser;
   const bestFormatedTime = moment(bestWinTime, "x").format("mm:ss");
 
@@ -107,7 +112,8 @@ module.exports.getMyStat = async (req, res, next) => {
   }
 
   const DBsearchResults = await Promise.all(promisesWithResults.names)
-  promisesWithResults.values = DBsearchResults.map((result, index) => result[0] ? promisesWithResults.values[index] = result[0].avarage : promisesWithResults.values[index])
+  promisesWithResults.values = DBsearchResults.map((result, index) => result[0] ? result[0].avarage : promisesWithResults.values[index])
+
   const avgWinFormatedTime = moment(promisesWithResults.values[2], "x").format("mm:ss");
 
   res.render('myStatView', {
