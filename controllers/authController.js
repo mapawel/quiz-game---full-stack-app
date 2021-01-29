@@ -106,7 +106,6 @@ module.exports.postSignUp = async (req, res, next) => {
   const signUpToken = await generateToken()
 
   const currentUserData = transfer === 'proceed' && req.session.user ? req.session.user.toObject() : {};
-  console.log(currentUserData)
   const userData = {
     ...currentUserData,
     name: capitalize(name),
@@ -261,8 +260,6 @@ module.exports.getResetPassConfirm = async (req, res, next) => {
 
 module.exports.postNewPass = async (req, res, next) => {
   const { resetToken, userId, password, confirmpassword } = req.body;
-  console.log(resetToken)
-  console.log(userId)
   const resetingUser = await User.findOne({
     resetToken,
     resetTokenExpiration: { $gt: Date.now() },

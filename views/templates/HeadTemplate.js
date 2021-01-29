@@ -8,6 +8,7 @@ const HeadTemplate = ({ children, title }) => (
       <title>{title}</title>
       <link rel="stylesheet" href="/css/main.css"></link>
       <link rel="stylesheet" href="/css/header-img.css"></link>
+      <link rel="stylesheet" href="/css/my-stat-img.css"></link>
     </head>
     <body>
       {children}

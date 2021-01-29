@@ -11,7 +11,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
             <div className="column is-flex is-flex-direction-column mt-0">
               {winners.length > 0 && (
                 <>
-                  <h1 className="title is-3 is-size-2-tablet is-size-1-desktop mb-2 mt-2">The winners:</h1>
+                  <h1 className="title is-3 is-size-2-tablet is-size-1-desktop mb-6 mt-2 color-text">The winners:</h1>
                   <table className="table content ml-3 mr-5">
                     <thead>
                       <tr>

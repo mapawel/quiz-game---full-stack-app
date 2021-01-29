@@ -6,6 +6,7 @@ const quitIfSignedUp = require('../middlewares/quitIfSignedUp');
 const quitIfNotSessionUser = require('../middlewares/quitIfNotSessionUser');
 const quitIfNotLoggedIn = require('../middlewares/quitIfNotLogged');
 const quitIfLoggedIn = require('../middlewares/quitIfLogged');
+const { body, validationResult } = require('express-validator');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

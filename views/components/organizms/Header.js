@@ -5,7 +5,7 @@ const Header = () => (
     <div className="container is-widescreen mt-5">
       <div className="columns is-desktop is-vcentered">
         <div className="column is-flex is-justify-content-center">
-          <div className="test"></div>
+          <div className="header-img"></div>
         </div>
         <div className="column is-flex is-flex-direction-column">
           <h1 className="title is-3 is-size-2-tablet is-size-1-desktop mb-6 mt-2">Welcome to the Quiz Game</h1>

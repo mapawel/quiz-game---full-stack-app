@@ -97,7 +97,7 @@ module.exports.getMyStat = async (req, res, next) => {
     await req.flash('authInfo', 'Please log in to see stats section.');
     return res.redirect('/')
   }
-  const { totalScore = 0, avarageScore = 0, winnerQty = 0, gamesPlaied = 0, bestWinTime = 0 } = currentUser;
+  const { totalScore = 0, avarageScore = 0, winnerQty = 0, gamesPlaied = 0, bestWinTime = 0, maxScoreIfNotWin = 0 } = currentUser;
   const bestFormatedTime = moment(bestWinTime, "x").format("mm:ss");
 
   const avgAllGamesPlaied = User.aggregate([{ $group: { _id: null, avarage: { $avg: "$gamesPlaied" } } }]).exec()
@@ -116,7 +116,7 @@ module.exports.getMyStat = async (req, res, next) => {
 
   const avgWinFormatedTime = moment(promisesWithResults.values[2], "x").format("mm:ss");
 
-  res.render('myStatView', {
+  res.render('logged/myStatView', {
     title: 'The Quiz Game',
     mainStats: {
       totalScore,
@@ -127,6 +127,7 @@ module.exports.getMyStat = async (req, res, next) => {
       avgAllGamesPlaied: promisesWithResults.values[0].toFixed(1),
       avgAllScore: promisesWithResults.values[1].toFixed(1),
       avgWinFormatedTime,
+      maxScoreIfNotWin,
     },
   })
 }

@@ -1,12 +1,15 @@
 import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
+import Spacer from '../components/atoms/Spacer';
+
 
 const FinishGame = ({ userName, title, avatar, message, stats: { pointsInCurrentGame, currentGameTime, winner, currentGameFormatedTime }, isLoggedIn }) => (
   <HeadTemplate
     title={title}
   >
     <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar}/>
+    <Spacer />
     <section className="section">
       <div className="container is-widescreen">
         <div className="box mb-6">

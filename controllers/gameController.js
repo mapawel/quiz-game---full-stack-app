@@ -8,6 +8,11 @@ const { capitalize } = require('../helpers/capitalize');
 
 module.exports.postGuestGame = async (req, res, next) => {
   const { name } = req.body;
+  const validName = (!name || name.length > 12) ? false : true;
+  if (!validName) {
+    await req.flash('authInfo', 'You have to write your nick-name, maxiumum 12 signs.');
+    return res.redirect('/auth')
+  }
   if (!req.session.user) {
     const isNameInDB = await User.findOne({ name: capitalize(name) });
     if (isNameInDB) {

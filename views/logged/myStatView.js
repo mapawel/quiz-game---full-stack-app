@@ -1,6 +1,8 @@
 import React from 'react';
-import HeadTemplate from './templates/HeadTemplate';
-import Navbar from './templates/Navbar';
+import HeadTemplate from '../templates/HeadTemplate';
+import Navbar from '../templates/Navbar';
+import Spacer from '../components/atoms/Spacer';
+
 
 const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
   totalScore = 0,
@@ -11,12 +13,14 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
   avgAllGamesPlaied = 0,
   avgAllScore = 0,
   avgWinFormatedTime = 0,
+  maxScoreIfNotWin = 0,
 } }) => (
   <HeadTemplate
     title={title}
   >
     <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
-    <section className="section hero is-white section-high">
+    <Spacer />
+    <section className="section hero is-white">
       <div className="hero-body">
         <div className="container is-widescreen mt-5">
           <div className="columns is-desktop">
@@ -49,6 +53,23 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <section className="section hero is-white">
+      <div className="hero-body">
+        <div className="container is-widescreen mt-5">
+          <div className="columns is-desktop is-vcentered">
+            <div className="column has-text-centered is-flex">
+              <div className="my-stat-img"></div>
+            </div>
+            <div className="column has-text-centered">
+              <p className="title is-3 is-size-2-widescreen has-text-weight-bold">your best score:</p>
+              <p className="subtitle big-paragraph has-text-weight-bold">{maxScoreIfNotWin}</p>
+              <p className="subtitle is-size-5 has-text-grey">in one game</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,12 +1,15 @@
 import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
+import Spacer from '../components/atoms/Spacer';
+
 
 const CheckAccount = ({ userName, title, avatar, isLoggedIn, message }) => (
   <HeadTemplate
     title={title}
   >
     <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
+    <Spacer />
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">
