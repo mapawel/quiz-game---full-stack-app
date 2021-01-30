@@ -2,14 +2,16 @@ import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
 import Spacer from '../components/atoms/Spacer';
+import Message from '../components/molecules/Message';
 
 
-const NewPass = ({ userName, isLoggedIn, avatar, title, resetToken, userId }) => (
+const NewPass = ({ userName, isLoggedIn, avatar, title, resetToken, userId, message }) => (
   <HeadTemplate
     title={title}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar}/>
+    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
     <Spacer />
+    {message && <Message message={message} />}
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">

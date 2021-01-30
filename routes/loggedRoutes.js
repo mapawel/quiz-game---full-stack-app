@@ -3,6 +3,8 @@ const router = express.Router();
 const multer  = require('multer');
 const loggedController = require('../controllers/loggedController');
 const quitIfNotLogged = require('../middlewares/quitIfNotLogged');
+const changePassValidator = require('../middlewares/validators/changePassValidator');
+const dataUpdateValidator = require('../middlewares/validators/dataUpdateValidator');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -18,13 +20,13 @@ router.all('*', quitIfNotLogged);
 
 router.get('/settings', loggedController.getSettings);
 
-router.post('/dataupdate', upload.single('avatarChange'), loggedController.postDataUpdate, loggedController.changeAvatar, loggedController.updateMessage);
+router.post('/dataupdate', upload.single('avatarChange'), dataUpdateValidator, loggedController.postDataUpdate, loggedController.changeAvatar, loggedController.updateMessage);
 
 router.get('/changemail/:changMailToken', loggedController.getChangeMailToken);
 
 router.get('/removeavatar', loggedController.changeAvatar, loggedController.updateMessage);
 
-router.post('/changepassword', loggedController.postChangePassword, loggedController.updateMessage);
+router.post('/changepassword', changePassValidator, loggedController.postChangePassword, loggedController.updateMessage);
 
 router.get('/removeaccount', loggedController.getRemoveAccount);
 

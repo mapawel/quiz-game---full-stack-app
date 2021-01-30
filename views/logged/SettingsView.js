@@ -1,26 +1,20 @@
 import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Navbar from '../templates/Navbar';
+import Spacer from '../components/atoms/Spacer';
+import Message from '../components/molecules/Message';
 
 const Settings = ({ userName, title, avatar, message, inputValues: { name, email }, isLoggedIn, deleteConfirmForm }) => (
   <HeadTemplate
     title={title}
   >
     <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
+    <Spacer />
+    {message && <Message message={message} />}
     <section className="section">
       <div className="container is-widescreen">
         <div className="columns is-centered mt-5">
           <div className="column is-half">
-            {message &&
-              <>
-                <div className="notification is-warning">
-                  <button className="delete"></button>
-                  <div className="block">
-                    {message}
-                  </div>
-                </div>
-              </>
-            }
 
             <div className="box">
               <p className="is-size-6 is-size-5-desktop has-text-centered has-text-weight-bold mb-6">
@@ -86,7 +80,7 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
               </p>
               {deleteConfirmForm ? (
                 <form className="fled" method="POST" action="/logged/removeaccount">
-                <label className="label" htmlFor="password">confirm by password:</label>
+                  <label className="label" htmlFor="password">confirm by password:</label>
                   <div className="control">
                     <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
                   </div>

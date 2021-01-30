@@ -6,6 +6,7 @@ const { capitalize } = require('../helpers/capitalize');
 const { generateToken } = require('../helpers/generateToken');
 const { validateUnique } = require('../helpers/validateUnique');
 const nodemailer = require('nodemailer');
+const { validationResult } = require('express-validator');
 
 
 if (dotenv.error) {
@@ -68,6 +69,14 @@ module.exports.postDataUpdate = async (req, res, next) => {
   let updatedUser;
   req.message = [];
   req.avatarChanged = req.file ? req.file.path : null;
+
+  const errors = validationResult(req);
+  const [err] = errors.array()
+  if (!errors.isEmpty()) {
+    req.message = [err.msg];
+    return next()
+  }
+
   req.updatingUser = await User.findById(req.session.user._id).exec()
 
   if (capitalize(name) != req.updatingUser.name) {
@@ -132,6 +141,14 @@ module.exports.changeAvatar = async (req, res, next) => {
 
 module.exports.postChangePassword = async (req, res, next) => {
   const { oldpassword, password, confirmpassword } = req.body;
+
+  const errors = validationResult(req);
+  const [err] = errors.array()
+  if (!errors.isEmpty()) {
+    req.message = [err.msg];
+    return next()
+  }
+
   const isPassMatching = await bcrypt.compare(oldpassword, req.session.user.password);
   if (isPassMatching) {
     const salt = await bcrypt.genSalt(12);

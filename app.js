@@ -63,7 +63,7 @@ app.use(async (req, res, next) => {
   try {
     if (req.session.user) {
       const currentUser = await User.findById(req.session.user._id).exec();
-      if (!currentUser) next()
+      if (!currentUser) return next()
       req.session.user = currentUser;
       res.locals.isLoggedIn = currentUser.isLoggedIn;
       res.locals.userName = currentUser.name;
