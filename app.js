@@ -86,7 +86,10 @@ app.use('/auth', authRoutes);
 app.use('/logged', loggedRoutes);
 app.use('/game', gameRoutes);
 
-
+app.use((error, req, res, next) => {
+  console.log('LOG O ERROR Z APP: ', error)
+  res.status(500).render('500', { title: 'Technical problem', error: error.code});
+})
 
 
 db.on('error', console.error.bind(console, 'connection error:'));

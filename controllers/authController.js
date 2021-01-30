@@ -82,7 +82,8 @@ module.exports.postSignUp = async (req, res, next) => {
 
     const errors = validationResult(req);
     const [err] = errors.array()
-    if (!errors.isEmpty()) {
+    if (!errors.isEmpty() || req.multerError) {
+      if (req.multerError) err.msg = req.multerError;
       return res.render('auth/SignUpView.js', {
         title: 'The Quiz Game - sign up',
         message: err.msg,

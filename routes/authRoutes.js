@@ -9,6 +9,7 @@ const logInValidator = require('../middlewares/validators/logInValidator');
 const signUpValidator = require('../middlewares/validators/signUpValidator');
 const resetPassValidator = require('../middlewares/validators/resetPassValidator');
 const newPassValidator = require('../middlewares/validators/newPassValidator');
+const multerSignUpErrorHandler = require('../middlewares/multerSignUpErrorHandler');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -18,7 +19,20 @@ const storage = multer.diskStorage({
     cb(null, `${file.originalname.split('.')[0]}${Date.now()}.${file.originalname.split('.')[1]}`)
   }
 })
-const upload = multer({ storage });
+
+
+const fileFilter = (req, file, cb) => {
+  const [fileType] = file.mimetype.split('/')
+  if (fileType !== 'image') {
+    const error = new Error('Wrong avatar file format')
+    error.type = 'multer-format'
+    cb(error)
+  } else {
+    cb(null, true)
+  }
+}
+
+const upload = multer({ storage, fileFilter, limits: { fileSize: 308000 } });
 
 router.get('/', authController.getCheckAccount);
 
@@ -26,7 +40,7 @@ router.get('/signup/:signUpToken', quitIfSignedUp, authController.getConfirmSign
 
 router.get('/signup', quitIfSignedUp, authController.getSignUp);
 
-router.post('/signup', quitIfSignedUp, upload.single('avatar'), signUpValidator, authController.postSignUp);
+router.post('/signup', quitIfSignedUp, upload.single('avatar'), multerSignUpErrorHandler, signUpValidator, authController.postSignUp);
 
 router.get('/login', quitIfLoggedIn, authController.getLogIn);
 

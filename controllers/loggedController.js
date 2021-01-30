@@ -210,7 +210,3 @@ module.exports.postRemoveAccount = async (req, res, next) => {
     })
   }
 }
-
-module.exports.getMyStat = async (req, res, next) => {
-  console.log('go')
-}
