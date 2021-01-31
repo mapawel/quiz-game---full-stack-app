@@ -12,6 +12,8 @@ const rootRoutes = require('./routes/rootRoutes');
 const authRoutes = require('./routes/authRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 const loggedRoutes = require('./routes/loggedRoutes');
+const errorHandler = require('./utils/errorHandler');
+
 
 if (dotenv.error) {
   throw dotenv.error
@@ -44,7 +46,7 @@ const userSession = {
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'js');
-app.engine('js', require('express-react-views').createEngine({throwIfNamespace: false}));
+app.engine('js', require('express-react-views').createEngine({ throwIfNamespace: false }));
 
 
 // mongoose.set('debug', true)
@@ -72,7 +74,7 @@ app.use(async (req, res, next) => {
     }
     next();
   } catch (err) {
-    console.log(err);
+    errorHandler(err, next)
   }
 })
 
@@ -86,9 +88,11 @@ app.use('/auth', authRoutes);
 app.use('/logged', loggedRoutes);
 app.use('/game', gameRoutes);
 
+app.use((req, res) => res.render('404', { title: 'Page not found' }));
+
 app.use((error, req, res, next) => {
-  console.log('LOG O ERROR Z APP: ', error)
-  res.status(500).render('500', { title: 'Technical problem', error: error.code});
+  console.log('MAIN APP ERROR HANDLER LOG: ', error)
+  res.status(500).render('500', { title: 'Technical problem' });
 })
 
 

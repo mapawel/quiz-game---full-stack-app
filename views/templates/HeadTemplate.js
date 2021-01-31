@@ -1,6 +1,9 @@
 import React from 'react';
+import Footer from '../components/organizms/Footer';
+import Navbar from './Navbar';
+import Spacer from '../components/atoms/Spacer';
 
-const HeadTemplate = ({ children, title }) => (
+const HeadTemplate = ({ userName, isLoggedIn, avatar, menuActive, children, title }) => (
   <html lang="en">
     <head>
       <meta charSet="UTF-8" />
@@ -11,9 +14,17 @@ const HeadTemplate = ({ children, title }) => (
       <link rel="stylesheet" href="/css/my-stat-img.css"></link>
     </head>
     <body>
+      <Navbar
+        userName={userName}
+        isLoggedIn={isLoggedIn}
+        avatar={avatar}
+        menuActive={menuActive}
+      />
+      <Spacer />
       {children}
-    <script src="/js/menu.js"></script>
-    <script src="/js/notifications.js"></script>
+      <Footer />
+      <script src="/js/menu.js"></script>
+      <script src="/js/notifications.js"></script>
     </body>
   </html>
 )

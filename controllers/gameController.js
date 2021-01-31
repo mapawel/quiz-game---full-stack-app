@@ -3,45 +3,52 @@ const QuestionShort = require('../models/questionShort');
 const mongoose = require('mongoose');
 const moment = require('moment');
 const { capitalize } = require('../helpers/capitalize');
-
-
+const errorHandler = require('../utils/errorHandler');
 
 module.exports.postGuestGame = async (req, res, next) => {
-  const { name } = req.body;
-  const validName = (!name || name.length > 12) ? false : true;
-  if (!validName) {
-    await req.flash('authInfo', 'You have to write your nick-name, maxiumum 12 signs.');
-    return res.redirect('/auth')
-  }
-  if (!req.session.user) {
-    const isNameInDB = await User.findOne({ name: capitalize(name) });
-    if (isNameInDB) {
-      await req.flash('authInfo', 'User with this name exists in our base. Please chose the other nick-name for more clear score tables');
+  try {
+    const { name } = req.body;
+    const validName = (!name || name.length > 12) ? false : true;
+    if (!validName) {
+      await req.flash('authInfo', 'You have to write your nick-name, maxiumum 12 signs.');
       return res.redirect('/auth')
     }
-    const guestUser = new User({ name: capitalize(name) })
-    await guestUser.save()
-    req.session.user = guestUser
-    req.session.save((err) => {
-      if (err) console.log(err);
-      res.redirect('/game/prepare');
-    })
-  } else res.redirect('/game/prepare');
+    if (!req.session.user) {
+      const isNameInDB = await User.findOne({ name: capitalize(name) });
+      if (isNameInDB) {
+        await req.flash('authInfo', 'User with this name exists in our base. Please chose the other nick-name for more clear score tables');
+        return res.redirect('/auth')
+      }
+      const guestUser = new User({ name: capitalize(name) })
+      await guestUser.save()
+      req.session.user = guestUser
+      req.session.save((err) => {
+        if (err) console.log(err);
+        res.redirect('/game/prepare');
+      })
+    } else res.redirect('/game/prepare');
+  } catch (err) {
+    errorHandler(err, next)
+  }
 }
 
 module.exports.getPrepareGame = async (req, res, next) => {
-  if (req.session.currentGame.gameInProgress) {
-    return res.redirect('/game/finish?finished=true');
-  }
-  req.session.currentGame.canplay = true;
-  req.session.currentGame.questionsToAnswer = 11;
-  req.session.currentGame.gameStartTime = null;
-  req.session.save((err) => {
-    if (err) console.log(err)
-    res.render('game/PrepareGameView', {
-      title: 'The Quiz Game - preparing ...',
+  try {
+    if (req.session.currentGame.gameInProgress) {
+      return res.redirect('/game/finish?finished=true');
+    }
+    req.session.currentGame.canplay = true;
+    req.session.currentGame.questionsToAnswer = 11;
+    req.session.currentGame.gameStartTime = null;
+    req.session.save((err) => {
+      if (err) console.log(err)
+      res.render('game/PrepareGameView', {
+        title: 'The Quiz Game - preparing ...',
+      })
     })
-  })
+  } catch (err) {
+    errorHandler(err, next)
+  }
 }
 
 module.exports.getPlayGame = async (req, res, next) => {
@@ -85,16 +92,15 @@ module.exports.getPlayGame = async (req, res, next) => {
         })
       }
     })
-
   } catch (err) {
-    console.log(err)
+    errorHandler(err, next)
   }
 }
 
 module.exports.postPlayGameAnswer = async (req, res, next) => {
-  const answerDate = Date.now()
-  const { answerNumber, questionId } = req.body;
   try {
+    const answerDate = Date.now()
+    const { answerNumber, questionId } = req.body;
     const currentQuestion = await QuestionShort.findById(questionId).exec()
 
     if (answerDate - req.session.currentGame.questionStartTime > 60000) {
@@ -129,18 +135,17 @@ module.exports.postPlayGameAnswer = async (req, res, next) => {
         res.redirect('/game/finish');
       })
     }
-
   } catch (err) {
-    console.log(err)
+    errorHandler(err, next)
   }
 }
 
 module.exports.getFinishGame = async (req, res, next) => {
-  if (!req.session.currentGame.gameInProgress) {
-    res.redirect('/');
-    return
-  }
   try {
+    if (!req.session.currentGame.gameInProgress) {
+      res.redirect('/');
+      return
+    }
     const { timeout, finished } = req.query
     let [message] = await req.consumeFlash('info');
     if (timeout) message = 'Time out! Try again...'
@@ -175,6 +180,6 @@ module.exports.getFinishGame = async (req, res, next) => {
       })
     })
   } catch (err) {
-    console.log(err)
+    errorHandler(err, next)
   }
 }

@@ -5,13 +5,12 @@ const { capitalize } = require('../helpers/capitalize');
 const { generateToken } = require('../helpers/generateToken');
 const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
-
+const errorHandler = require('../utils/errorHandler');
 
 if (dotenv.error) {
   throw dotenv.error
   console.log(dotenv.error)
 }
-
 
 let transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -28,51 +27,63 @@ let transporter = nodemailer.createTransport({
 
 
 module.exports.getCheckAccount = async (req, res, next) => {
-  if (req.session.user) {
-    res.redirect('/game/prepare')
-  } else {
-    const [message] = await req.consumeFlash('authInfo');
-    res.render('auth/CheckAccountView', {
-      title: 'The Quiz Game - guest',
-      message,
-    })
+  try {
+    if (req.session.user) {
+      res.redirect('/game/prepare')
+    } else {
+      const [message] = await req.consumeFlash('authInfo');
+      res.render('auth/CheckAccountView', {
+        title: 'The Quiz Game - guest',
+        message,
+      })
+    }
+  } catch (err) {
+    errorHandler(err, next)
   }
 }
 
 module.exports.getSignUp = async (req, res, next) => {
-  const [message] = await req.consumeFlash('authInfo');
-  const name = req.session.user ? req.session.user.name : '';
-  res.render('auth/SignUpView.js', {
-    title: 'The Quiz Game - sign up',
-    message,
-    inputValues: {
-      name,
-      email: '',
-      password: '',
-      confirmpassword: '',
-    },
-    canTransfer: req.session.user ? true : false,
-  })
+  try {
+    const [message] = await req.consumeFlash('authInfo');
+    const name = req.session.user ? req.session.user.name : '';
+    res.render('auth/SignUpView.js', {
+      title: 'The Quiz Game - sign up',
+      message,
+      inputValues: {
+        name,
+        email: '',
+        password: '',
+        confirmpassword: '',
+      },
+      canTransfer: req.session.user ? true : false,
+    })
+  } catch (err) {
+    errorHandler(err, next)
+  }
 }
 
 module.exports.getConfirmSignUp = async (req, res, next) => {
-  const { signUpToken } = req.params;
-  const confirmedUser = await User.findOneAndUpdate({ signUpToken, signUpTokenExpiration: { $gt: Date.now() } }, {
-    isSignedUp: true,
-    isLoggedIn: true,
-    signUpToken: null,
-    signUpTokenExpiration: null,
-  }, { useFindAndModify: false }).exec();
-  if (!confirmedUser) {
-    req.flash('authInfo', 'Something went wrong, try again or please sign up for a new account.');
-    return res.redirect('/auth/signup');
+  try {
+    const { signUpToken } = req.params;
+    const confirmedUser = await User.findOneAndUpdate({ signUpToken, signUpTokenExpiration: { $gt: Date.now() } }, {
+      isSignedUp: true,
+      isLoggedIn: true,
+      signUpToken: null,
+      signUpTokenExpiration: null,
+    }, { useFindAndModify: false }).exec();
+    if (!confirmedUser) {
+      req.flash('authInfo', 'Something went wrong, try again or please sign up for a new account.');
+      return res.redirect('/auth/signup');
+    }
+    req.session.user = confirmedUser;
+    await req.flash('authInfo', 'Your account created!');
+    req.session.save((err) => {
+      if (err) console.log(err);
+      res.redirect('/');
+    })
+  } catch (err) {
+    errorHandler(err, next)
   }
-  req.session.user = confirmedUser;
-  await req.flash('authInfo', 'Your account created!');
-  req.session.save((err) => {
-    if (err) console.log(err);
-    res.redirect('/');
-  })
 }
 
 module.exports.postSignUp = async (req, res, next) => {
@@ -151,17 +162,21 @@ module.exports.postSignUp = async (req, res, next) => {
     <p>If it\'s someone\'s mistake and you don\'t intend to sign up in QUIZ GAME, just ignore this message, we won\'t use your e-mail address.</p>`,
     })
   } catch (err) {
-    console.log(err)
+    errorHandler(err, next)
   }
 }
 
 module.exports.getLogIn = async (req, res, next) => {
-  const [message] = await req.consumeFlash('authInfo');
-  res.render('auth/LogInView.js', {
-    title: 'The Quiz Game - log in',
-    message,
-    inputValues: { email: '' }
-  })
+  try {
+    const [message] = await req.consumeFlash('authInfo');
+    res.render('auth/LogInView.js', {
+      title: 'The Quiz Game - log in',
+      message,
+      inputValues: { email: '' }
+    })
+  } catch (err) {
+    errorHandler(err, next)
+  }
 }
 
 module.exports.postLogIn = async (req, res, next) => {
@@ -203,18 +218,22 @@ module.exports.postLogIn = async (req, res, next) => {
       res.redirect('/auth/login')
     }
   } catch (err) {
-    console.log('to jest catch w sign in post: ', err)
+    errorHandler(err, next)
   }
 }
 
 module.exports.getLogOut = async (req, res, next) => {
-  await User.findOneAndUpdate({ _id: req.session.user._id }, {
-    isLoggedIn: false,
-  }, { useFindAndModify: false }).exec()
-  req.session.destroy((err) => {
-    if (err) console.log(err);
-    res.redirect('/')
-  })
+  try {
+    await User.findOneAndUpdate({ _id: req.session.user._id }, {
+      isLoggedIn: false,
+    }, { useFindAndModify: false }).exec()
+    req.session.destroy((err) => {
+      if (err) console.log(err);
+      res.redirect('/')
+    })
+  } catch (err) {
+    errorHandler(err, next)
+  }
 }
 
 
@@ -306,7 +325,7 @@ module.exports.postNewPass = async (req, res, next) => {
       req.flash('authInfo', 'Something went wrong, try again. ??');
       return res.redirect('/auth/resetpass');
     }
-    
+
     const errors = validationResult(req);
     const [err] = errors.array()
     if (!errors.isEmpty()) {

@@ -3,6 +3,7 @@ import React from 'react';
 const Clock = () => (
   <div className="clock-wrapper">
     <div className="clock-outerring">
+      <div className="clock-blick1"></div>
       <div className="clock-face1"></div>
       <div className="clock-face2"></div>
       <div className="clock-face4"></div>

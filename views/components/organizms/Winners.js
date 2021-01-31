@@ -41,7 +41,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
               )}
               {restPlayers.length > 0 && (
                 <>
-                  <h3 className="subtitle is-5 is-size-4-tablet is-size-3-desktop has-text-grey mb-2">The rest players:</h3>
+                  <p className="subtitle is-5 is-size-4-tablet is-size-3-desktop has-text-grey mb-2">The rest players:</p>
                   <table className="table content ml-3 mr-5">
                     <thead>
                       <tr>
@@ -64,7 +64,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
                   </table>
                 </>
               )}
-              <a href="/results" className="is-align-self-flex-start"><button className="button is-primary is-medium">full results list</button></a>
+              <a href="/results" className="is-align-self-flex-start"><button className="button is-primary is-medium mt-4">full list</button></a>
             </div>
             <div className="column is-three-fifths">
               <figure className="image is-4by3">

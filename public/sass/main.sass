@@ -6,12 +6,17 @@ $dark: #dddfd7
 $success: #fdef25
 $warning: #EB6418
 $text: #292426
+$link: $primary
 $text-strong: #292426
+$footer-background-color: $dark
+$footer-padding: 1.5rem 1.5rem 2rem
 $table-background-color: transparent
 $border: white
 $table-cell-border: 2px solid $border
 $navbar-item-hover-color: $primary
 $navbar-item-active-color: $primary
+$navbar-dropdown-item-active-color: $primary
+$navbar-dropdown-item-hover-color: $primary
 $navbar-dropdown-arrow: $primary
 $family-primary: 'Cairo', sans-serif
 $family-secondary: 'Comfortaa', sans-serif
@@ -37,6 +42,12 @@ $fullhd: 1600px + (2 * $gap) !default
 html
   font-size: 110%
 
+body
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  justify-content: start
+
 .container
   padding: 0 .5rem
 
@@ -44,19 +55,64 @@ html
   white-space: normal
   height: auto
 
+.control
+  margin-bottom: 1rem
+
+form
+  .button
+    margin-bottom: 1.5rem
+    margin-top: 1rem
+
+@mixin fileinput()
+  display: block
+  position: absolute
+  top: 0
+  left: 0
+  height: 100%
+  background-image: url('/images/upload.svg')
+  background-repeat: no-repeat
+  background-position: 8px center
+  block-size: contain
+  border: none
+  padding: .3em .6em
+  padding-left: 28px
+  background-color: $primary
+  color: white
+  font-family: Cairo
+  line-height: 1
+  &:hover
+    cursor: pointer
+
+.input[type=file]
+  padding-left: 140px
+  &::-webkit-file-upload-button
+    @include fileinput()
+  &::file-selector-button
+    @include fileinput()
+
+.box
+  padding: 1.5rem 2rem
+
+@media screen and ( min-width: 600px )
+  .box
+    padding: 2.5rem 3rem
+
 .menu-avatar
   overflow: hidden
   border: 1px solid $primary
   border-radius: 50%
 
 .section
-  padding: 30px
+  padding: 30px 5px
+
+.footer
+  margin-top: auto
 
 .curved-section
   padding: 80px 0
 
 .section-high
-  padding: 100px
+  padding: 100px 0
 
 .box-wide
   width: 100%
@@ -65,21 +121,31 @@ html
   .table td, .table th
     padding: .2rem .1rem
 
+.game-img
+  max-height: 600px
 
 .topcurve
-  margin-top: -250px
+  margin-top: -350px
+  margin-bottom: -1px
   background-image: url('/images/uppercurve.svg')
   width: 100%
   height: 400px
   background-position-x: 50%
 
 .bottomcurve
-  margin-bottom: -220px
+  margin-bottom: -320px
+  margin-top: -1px
   background-image: url('/images/uppercurve.svg')
   width: 100%
   height: 400px
   background-position-x: 50%
   transform: rotate(180deg)
+
+@media screen and ( min-width: 1200px )
+  .topcurve
+    margin-top: -250px
+  .bottomcurve
+    margin-bottom: -220px
 
 .hero-body
   padding: 0
@@ -96,8 +162,7 @@ html
 
 .color-text
   color: ($text !important)
-  
-  
+
       // clock
 
 .clock-wrapper
@@ -112,6 +177,16 @@ html
   overflow: hidden
   box-shadow: inset 0px 0px 15px $primary
 
+.clock-blick1
+  position: absolute
+  z-index: 10
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background-image: linear-gradient(-70deg, rgba(255,255,255,0) 18%, rgba(255,255,255,0.2) 32%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 64%, rgba(255,255,255,0.2) 70%, rgba(255,255,255,0) 76%, rgba(255,255,255,0) 83%, rgba(255,255,255,0.15) 87%, rgba(255,255,255,0) 92%), linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 10%, rgba(255,255,255,0.3) 44%, rgba(255,255,255,0) 100%)
+  block-size: cover
+
 .clock-face1, .clock-face2
   position: absolute
   left: 0
@@ -122,7 +197,6 @@ html
 .clock-face1
   background-color: $warning
   clip-path: polygon(50% 50%, 50% 0, 100% 0)
-
 
 .clock-face2
   background-color: $success
@@ -149,12 +223,11 @@ html
   height: 80%
   background-color: #fff
 
-
 .clock-face6
   width: 60%
   height: 60%
   background-color: $primary
-  // box-shadow: 0px 0px 30px -2px $primary
+  box-shadow: inset 0px 0px 30px #0000003d
 
 .clock-tip
   position: absolute

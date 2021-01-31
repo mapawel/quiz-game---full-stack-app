@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
+const Navbar = ({ userName = 'Guest', isLoggedIn, avatar, menuActive }) => (
   <nav className="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
     <div className="container is-widescreen">
       <div className="navbar-brand mr-3">
         <a className="navbar-item" href="/">
-          <h1 className="title is-3 has-text-primary is-family-secondary mr-2">Quiz Game</h1>
+          <h1 className="title is-4 is-size-3-tablet has-text-primary is-family-secondary mr-2">Quiz Game</h1>
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-nav="navBarTop">
@@ -22,7 +22,7 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
               PLAY
             </a>
           </div>
-          <a href="/results" className="navbar-item mx-3">
+          <a href="/results" className={menuActive === 'results' ? 'navbar-item mx-3 is-active' : 'navbar-item mx-3'}>
             Results
               </a>
           <a className="navbar-item mx-3">
@@ -54,10 +54,10 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar }) => (
               <div className="navbar-dropdown is-boxed">
                 {isLoggedIn &&
                   <>
-                    <a href="/logged/mystat" className="navbar-item">
+                    <a href="/mystat" className={menuActive === 'mystats' ? 'navbar-item is-active' : 'navbar-item'}>
                       MyStats
                     </a>
-                    <a href="/logged/settings" className="navbar-item">
+                    <a href="/logged/settings" className={menuActive === 'settings' ? 'navbar-item is-active' : 'navbar-item'}>
                       Account Settings
                     </a>
                     <hr className="navbar-divider" />

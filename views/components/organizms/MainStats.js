@@ -41,11 +41,10 @@ const MainStats = ({ mainStats: {
           </div>
         </div>
         <a href="/mystat" className="level-right">
-          <button className="button is-primary is-medium">my statistics</button>
+          <button className="button is-primary is-medium mt-4 mb-6">my statistics</button>
         </a>
       </div>
     </div>
-    <p><a href="https://storyset.com/education">Illustration by Freepik Storyset</a></p>
   </section>
 );
 

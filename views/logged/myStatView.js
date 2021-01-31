@@ -1,8 +1,6 @@
 import React from 'react';
 import HeadTemplate from '../templates/HeadTemplate';
-import Navbar from '../templates/Navbar';
-import Spacer from '../components/atoms/Spacer';
-
+import TwoColumnsTemplate from '../templates/TwoColumnsTemplate';
 
 const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
   totalScore = 0,
@@ -14,12 +12,14 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
   avgAllScore = 0,
   avgWinFormatedTime = 0,
   maxScoreIfNotWin = 0,
-} }) => (
+}, menuActive }) => (
   <HeadTemplate
     title={title}
+    userName={userName}
+    isLoggedIn={isLoggedIn}
+    avatar={avatar}
+    menuActive={menuActive}
   >
-    <Navbar userName={userName} isLoggedIn={isLoggedIn} avatar={avatar} />
-    <Spacer />
     <section className="section hero is-white">
       <div className="hero-body">
         <div className="container is-widescreen mt-5">
@@ -52,11 +52,9 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
     <section className="section hero is-white">
       <div className="hero-body">
         <div className="container is-widescreen mt-5">
@@ -73,11 +71,9 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
         </div>
       </div>
     </section>
-
     <section className="section hero is-dark section-high">
       <div className="hero-body">
         <div className="container is-widescreen mt-5">
-
           <div className="columns is-desktop">
             <div className="column has-text-centered is-flex">
               <div className="box p-6 box-wide box-dark">
@@ -100,7 +96,6 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
                 <p className="is-size-5 has-text-grey">win time</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>
