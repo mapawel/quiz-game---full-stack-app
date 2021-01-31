@@ -3,11 +3,11 @@ import HeadTemplate from '../templates/HeadTemplate';
 import Clock from '../components/organizms/Clock';
 
 const PlayGame = ({ userName, title, avatar, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
-  maxScoreIfNotWin, bestWinFormatedTime }, isLoggedIn }) => {
+  maxScore, bestWinFormatedTime }, isLoggedIn }) => {
   let userResult = '';
-  if (maxScoreIfNotWin * 1 === 1) userResult = `${maxScoreIfNotWin} point`;
-  else if (maxScoreIfNotWin * 1 === 10) userResult = `WIN in ${bestWinFormatedTime}`;
-  else userResult = `${maxScoreIfNotWin} points`;
+  if (maxScore * 1 === 1) userResult = `${maxScore} point`;
+  else if (maxScore * 1 === 10) userResult = `WIN in ${bestWinFormatedTime}`;
+  else userResult = `${maxScore} points`;
 
   return (
     <HeadTemplate
@@ -16,7 +16,7 @@ const PlayGame = ({ userName, title, avatar, message, gameData: { question, answ
       isLoggedIn={isLoggedIn}
       avatar={avatar}
     >
-      <section className="section">
+      <section className="section game-section">
         <div className="container is-widescreen">
           <div className="columns is-desktop is-vcentered">
             <div className="column ml-4">
@@ -54,9 +54,9 @@ const PlayGame = ({ userName, title, avatar, message, gameData: { question, answ
               </form>
             )}
           </div>
-          {message && <div className="notification is-primary self-close">
+          {message && <div className="notification has-text-centered is-primary self-close">
             <button className="delete"></button>
-            {message && <span className="subtitle has-text-centered is-6 is-size-5-tablet is-size-4-desktop has-text-grey mb-4">{message}</span>}
+            {message && <span className="subtitle is-6 is-size-5-tablet is-size-4-desktop has-text-white mb-4">{message}</span>}
           </div>}
         </div>
       </section>

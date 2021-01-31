@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const QuestionShort = require('../models/questionShort');
+const Question = require('../models/question');
 const mongoose = require('mongoose');
 const moment = require('moment');
 const { capitalize } = require('../helpers/capitalize');
@@ -69,12 +69,12 @@ module.exports.getPlayGame = async (req, res, next) => {
           res.redirect('/game/finish')
         })
       } else {
-        const [questionObj] = await QuestionShort.aggregate([
+        const [questionObj] = await Question.aggregate([
           { $match: { _id: { $nin: req.session.user.questionsAnswered } } },
           { $sample: { size: 1 } }
         ]).exec()
         const { _id, question, content: answers } = questionObj
-        const { maxScoreIfNotWin, bestWinTime } = req.session.user
+        const { maxScore, bestWinTime } = req.session.user
         const bestWinFormatedTime = moment(bestWinTime, "x").format("mm:ss")
         res.render('game/PlayGameView', {
           title: 'The Quiz Game - play ...',
@@ -86,7 +86,7 @@ module.exports.getPlayGame = async (req, res, next) => {
           },
           currentGame: req.session.currentGame,
           userScore: {
-            maxScoreIfNotWin,
+            maxScore,
             bestWinFormatedTime,
           },
         })
@@ -101,7 +101,7 @@ module.exports.postPlayGameAnswer = async (req, res, next) => {
   try {
     const answerDate = Date.now()
     const { answerNumber, questionId } = req.body;
-    const currentQuestion = await QuestionShort.findById(questionId).exec()
+    const currentQuestion = await Question.findById(questionId).exec()
 
     if (answerDate - req.session.currentGame.questionStartTime > 60000) {
       req.session.currentGame.canplay = false;
@@ -117,7 +117,7 @@ module.exports.postPlayGameAnswer = async (req, res, next) => {
       req.session.save(async (err) => {
         if (err) console.log(err)
         let answeredArr = [...req.session.user.questionsAnswered]
-        const questionsTotalQty = await QuestionShort.countDocuments()
+        const questionsTotalQty = await Question.countDocuments()
         if (answeredArr.length === questionsTotalQty - 1) {
           answeredArr = []
         } else {
@@ -162,7 +162,7 @@ module.exports.getFinishGame = async (req, res, next) => {
       if (user.bestWinTime === 0) user.bestWinTime = stats.currentGameTime;
       if (stats.currentGameTime < user.bestWinTime) user.bestWinTime = stats.currentGameTime;
     }
-    if (user.maxScoreIfNotWin < stats.pointsInCurrentGame) user.maxScoreIfNotWin = stats.pointsInCurrentGame
+    if (user.maxScore < stats.pointsInCurrentGame) user.maxScore = stats.pointsInCurrentGame
     user.gamesPlaied++;
     user.totalScore = user.totalScore + stats.pointsInCurrentGame;
     user.avarageScore = user.totalScore / user.gamesPlaied;

@@ -38,7 +38,7 @@ const ResultsTables = ({ userName, results, page, isLoadingDisabled }) => {
                             )}
                         </p>
                       </td>
-                      <td className="tableCell"><p className="tableText" >{user.maxScoreIfNotWin}</p></td>
+                      <td className="tableCell"><p className="tableText" >{user.maxScore}</p></td>
                       <td className="tableCell"><p className="tableText" >{user.avarageScore.toFixed(2)}</p></td>
                       <td className="tableCell"><p className="tableText" >{user.bestWinFormatedTime}</p></td>
                       <td className="tableCell"><p className="tableText" >{user.winnerQty}</p></td>

@@ -62,15 +62,15 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
           <form className="fled" method="POST" action="/logged/changepassword">
             <label className="label" htmlFor="oldpassword">*old password:</label>
             <div className="control">
-              <input className="input is-primary" name="oldpassword" id="oldpassword" type="password" placeholder="min 8 characters" />
+              <input className="input is-primary" name="oldpassword" id="oldpassword" type="password" placeholder="current pass..." />
             </div>
             <label className="label" htmlFor="password">*new password:</label>
             <div className="control">
-              <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
+              <input className="input is-primary" name="password" id="password" type="password" placeholder="my new strong pass..." />
             </div>
             <label className="label" htmlFor="confirmpassword">*confrm new password:</label>
             <div className="control">
-              <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same password" />
+              <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same new password" />
             </div>
             <button type="submit" className="button is-primary">Change password</button>
           </form>

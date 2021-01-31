@@ -12754,6 +12754,8 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(221, 223, 215, 0.25)), to(rgba(255, 255, 255, 0)));
+  background-image: linear-gradient(0deg, rgba(221, 223, 215, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .container {
@@ -12824,6 +12826,39 @@ form .button {
   cursor: pointer;
 }
 
+input[type=checkbox] {
+  position: relative;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+input[type=checkbox]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border: 2px solid #000000;
+  border-radius: 3px;
+  background-color: white;
+}
+
+input[type=checkbox]:checked:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid #4e886c;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+}
+
 .box {
   padding: 1.5rem 2rem;
 }
@@ -12831,6 +12866,9 @@ form .button {
 @media screen and (min-width: 600px) {
   .box {
     padding: 2.5rem 3rem;
+  }
+  .clock-wrapper {
+    margin-left: 50px;
   }
 }
 
@@ -12897,6 +12935,9 @@ form .button {
   }
   .bottomcurve {
     margin-bottom: -220px;
+  }
+  .game-section {
+    margin-top: 100px;
   }
 }
 
@@ -13032,9 +13073,9 @@ form .button {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 7px;
-  height: 7px;
-  background-color: #dddfd7;
+  width: 5px;
+  height: 5px;
+  background-color: #303030;
   border-radius: 50%;
 }
 /*# sourceMappingURL=main.css.map */

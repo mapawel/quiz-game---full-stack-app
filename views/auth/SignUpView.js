@@ -25,7 +25,7 @@ const SignUp = ({ userName, title, avatar, message, inputValues: { name, email }
               </div>
               <label className="label" htmlFor="email">*e-mail:</label>
               <div className="control">
-                <input className="input is-primary" name="email" id="email" defaultValue={email} type="text" placeholder="example@axample.com" autoComplete="nope" />
+                <input className="input is-primary" name="email" id="email" defaultValue={email} type="text" placeholder="example@axample.com" />
               </div>
               <label className="label" htmlFor="avatar">avatar / photo:</label>
               <div className="control">
@@ -34,17 +34,19 @@ const SignUp = ({ userName, title, avatar, message, inputValues: { name, email }
 
               <label className="label" htmlFor="password">*password:</label>
               <div className="control">
-                <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
+                <input className="input is-primary" name="password" id="password" type="password" placeholder="my strong pass..." />
               </div>
               <label className="label" htmlFor="confirmpassword">*confrm password:</label>
               <div className="control">
                 <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same password" />
               </div>
               {canTransfer &&
-                <label className="checkbox">
-                  <input type="checkbox" name="transfer" value="transfer" />
-                      I want to transfer my results from guest account
-                    </label>
+                <div>
+                  <input type="checkbox" name="transfer" id="transfer" value="transfer" />
+                  <label className="checkbox" htmlFor="transfer" >
+                    <b>  I want to transfer my results from guest account</b>
+                  </label>
+                </div>
               }
               <button type="submit" className="button is-primary">Sign Up</button>
             </form>

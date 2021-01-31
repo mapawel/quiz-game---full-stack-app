@@ -8,7 +8,7 @@ const MainStats = ({ mainStats: {
   bestFormatedTime = '-',
 } }) => (
 
-  <section className="section hero is-white">
+  <section className="section hero">
     <div className="hero-body">
       <div className="container is-widescreen mt-5">
         <div className="columns is-desktop">

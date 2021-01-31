@@ -20,9 +20,6 @@ const userSchema = new Schema({
     type: String,
     default: ''
   },
-  age: {
-    type: Number,
-  },
   signOutDate: {
     type: Number,
     default: Date.now,
@@ -40,7 +37,7 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-  maxScoreIfNotWin: {
+  maxScore: {
     type: Number,
     default: 0,
   },
@@ -49,10 +46,6 @@ const userSchema = new Schema({
     default: 0,
   },
   bestWinTime: {
-    type: Number,
-    default: 0,
-  },
-  avarageAnswerTime: {
     type: Number,
     default: 0,
   },

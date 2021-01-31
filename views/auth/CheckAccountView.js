@@ -44,7 +44,7 @@ const CheckAccount = ({ userName, title, avatar, isLoggedIn, message }) => (
         <div className="box">
           <p className="subtitle">I have an account:</p>
           <a href="/auth/login" >
-            <button className="button is-primary">Log In</button>
+            <button className="button is-primary mb-5">Log In</button>
           </a>
           <p className="subtitle">I don't have an account and I want one:</p>
           <a href="/auth/signup">

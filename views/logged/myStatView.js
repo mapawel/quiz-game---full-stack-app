@@ -11,7 +11,7 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
   avgAllGamesPlaied = 0,
   avgAllScore = 0,
   avgWinFormatedTime = 0,
-  maxScoreIfNotWin = 0,
+  maxScore = 0,
 }, menuActive }) => (
   <HeadTemplate
     title={title}
@@ -64,7 +64,7 @@ const MyStat = ({ userName, title, isLoggedIn, avatar, mainStats: {
             </div>
             <div className="column has-text-centered">
               <p className="title is-3 is-size-2-widescreen has-text-weight-bold">your best score:</p>
-              <p className="subtitle big-paragraph has-text-weight-bold">{maxScoreIfNotWin}</p>
+              <p className="subtitle big-paragraph has-text-weight-bold">{maxScore}</p>
               <p className="subtitle is-size-5 has-text-grey">in one game</p>
             </div>
           </div>

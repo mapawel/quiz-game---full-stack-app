@@ -10,4 +10,4 @@ const questionSchema = new Schema({
   id: Number,
 })
 
-module.exports = mongoose.model('QuestionShort', questionSchema);
+module.exports = mongoose.model('Question', questionSchema);

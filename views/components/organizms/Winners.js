@@ -56,7 +56,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
                         <tr key={index + player.email}>
                           <th><p>{index + 1}</p></th>
                           <td><p>{player.name}</p></td>
-                          <td>{player.maxScoreIfNotWin}</td>
+                          <td>{player.maxScore}</td>
                           <td>{player.avarageScore.toFixed(2)}</td>
                         </tr>
                       ))}

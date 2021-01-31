@@ -16,9 +16,9 @@ module.exports.getStart = async (req, res, next) => {
       .lean()
       .exec()
     const restPlayers = await User
-      .find({ winnerQty: 0, maxScoreIfNotWin: { $gt: 0 } })
+      .find({ winnerQty: 0, maxScore: { $gt: 0 } })
       .sort({
-        maxScoreIfNotWin: -1,
+        maxScore: -1,
         avarageScore: -1,
       }
       )
@@ -68,11 +68,11 @@ module.exports.getResults = async (req, res, next) => {
   try {
     const { page = 1 } = req.query
     let results = await User
-      .find({ maxScoreIfNotWin: { $gt: 0 } })
+      .find({ maxScore: { $gt: 0 } })
       .sort({
         winnerQty: -1,
         bestWinTime: 1,
-        maxScoreIfNotWin: -1,
+        maxScore: -1,
         avarageScore: -1,
       }
       )
@@ -80,7 +80,7 @@ module.exports.getResults = async (req, res, next) => {
       .lean()
       .exec()
     const resultsQty = await User
-      .find({ maxScoreIfNotWin: { $gt: 0 } })
+      .find({ maxScore: { $gt: 0 } })
       .countDocuments()
       .exec()
     const isLoadingDisabled = (page * RESULTS_PER_PAGE) >= resultsQty;
@@ -108,7 +108,7 @@ module.exports.getMyStat = async (req, res, next) => {
       await req.flash('authInfo', 'Please log in to see stats section.');
       return res.redirect('/')
     }
-    const { totalScore = 0, avarageScore = 0, winnerQty = 0, gamesPlaied = 0, bestWinTime = 0, maxScoreIfNotWin = 0 } = currentUser;
+    const { totalScore = 0, avarageScore = 0, winnerQty = 0, gamesPlaied = 0, bestWinTime = 0, maxScore = 0 } = currentUser;
     const bestFormatedTime = moment(bestWinTime, "x").format("mm:ss");
 
     const avgAllGamesPlaied = User.aggregate([{ $group: { _id: null, avarage: { $avg: "$gamesPlaied" } } }]).exec()
@@ -138,7 +138,7 @@ module.exports.getMyStat = async (req, res, next) => {
         avgAllGamesPlaied: promisesWithResults.values[0].toFixed(1),
         avgAllScore: promisesWithResults.values[1].toFixed(1),
         avgWinFormatedTime,
-        maxScoreIfNotWin,
+        maxScore,
       },
       menuActive: 'mystats',
     })

@@ -17,11 +17,11 @@ const LogIn = ({ userName, title, avatar, message, inputValues: { email }, isLog
           <form className="fled" method="POST" action="/auth/login" >
             <label className="label" htmlFor="mail">e-mail:</label>
             <div className="control">
-              <input className="input is-primary" name="email" id="mail" defaultValue={email} type="text" placeholder="yourmail@example.com" autoComplete="nope" />
+              <input className="input is-primary" name="email" id="mail" defaultValue={email} type="text" placeholder="yourmail@example.com" />
             </div>
             <label className="label" htmlFor="password">password:</label>
             <div className="control">
-              <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
+              <input className="input is-primary" name="password" id="password" type="password" placeholder="my strong pass..." />
             </div>
             <button type="submit" className="button is-primary">Log In</button>
           </form>
