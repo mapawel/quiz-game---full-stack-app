@@ -1,5 +1,5 @@
 const debug = require('debug')('game')
-const dotenv = require('dotenv').config()
+// const dotenv = require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -15,14 +15,14 @@ const loggedRoutes = require('./routes/loggedRoutes');
 const errorHandler = require('./utils/errorHandler');
 
 
-if (dotenv.error) {
-  throw dotenv.error
-  console.log(dotenv.error)
-}
-const dburl = process.env.DBURL
-const sesstionSecret = process.env.SESSIONSECRET
+// if (dotenv.error) {
+//   throw dotenv.error
+//   console.log(dotenv.error)
+// }
+// const dburl = process.env.DBURL
+// const sesstionSecret = process.env.SESSIONSECRET
 
-mongoose.connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log('ERROR WHILE INITIAL CONNECT TO MONGODB', err));
 
 const store = new MongoDBStore({
@@ -37,7 +37,7 @@ const app = express();
 const db = mongoose.connection;
 const port = process.env.PORT || 8000;
 const userSession = {
-  secret: sesstionSecret,
+  secret: process.env.SESSIONSECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {},
