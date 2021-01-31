@@ -35,7 +35,7 @@ store.on('error', function (error) {
 
 const app = express();
 const db = mongoose.connection;
-const port = process.env.port || 8000;
+const port = process.env.PORT || 8000;
 const userSession = {
   secret: sesstionSecret,
   resave: false,
