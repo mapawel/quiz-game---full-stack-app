@@ -26,7 +26,7 @@ mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology:
   .catch((err) => console.log('ERROR WHILE INITIAL CONNECT TO MONGODB', err));
 
 const store = new MongoDBStore({
-  uri: dburl,
+  uri: process.env.DBURL,
   collection: 'sessions'
 });
 store.on('error', function (error) {
