@@ -199,7 +199,7 @@ module.exports.updateMessage = async (req, res, next) => {
 module.exports.getRemoveAccount = async (req, res, next) => {
   try {
     const { name, email } = req.session.user;
-    res.render('logged/settingsview', {
+    res.render('logged/settingview', {
       title: 'The Quiz Game - settings',
       inputValues: {
         name,
@@ -228,7 +228,7 @@ module.exports.postRemoveAccount = async (req, res, next) => {
         res.redirect('/')
       })
     } else {
-      res.render('logged/settingsview', {
+      res.render('logged/settingview', {
         title: 'The Quiz Game - settings',
         inputValues: {
           name,
