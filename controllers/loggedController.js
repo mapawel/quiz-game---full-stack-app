@@ -115,7 +115,7 @@ module.exports.postDataUpdate = async (req, res, next) => {
           subject: "e-mail change confirmation",
           html: `
       <p> You requested to change an e-mail address in QUIZ GAME to: ${email}</p>
-      <p><a href="http://localhost:8000/logged/changemail/${changMailToken}">Click this link to confirm</a></p>
+      <p><a href="http://https://warm-harbor-74468.herokuapp.com/logged/changemail/${changMailToken}">Click this link to confirm</a></p>
       <p>If it\'s someone\'s mistake and you don\'t intend it, just ignore this req.message, we won\'t use your e-mail address.</p>`,
         })
       }
