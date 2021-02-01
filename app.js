@@ -1,5 +1,5 @@
 const debug = require('debug')('game')
-const dotenv = require('dotenv').config()
+// const dotenv = require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -15,10 +15,10 @@ const loggedRoutes = require('./routes/loggedRoutes');
 const errorHandler = require('./utils/errorHandler');
 
 
-if (dotenv.error) {
-  throw dotenv.error
-  console.log(dotenv.error)
-}
+// if (dotenv.error) {
+//   throw dotenv.error
+//   console.log(dotenv.error)
+// }
 
 mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log('ERROR WHILE INITIAL CONNECT TO MONGODB', err));

@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 const fs = require('fs');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
@@ -9,10 +9,10 @@ const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
 const errorHandler = require('../utils/errorHandler');
 
-if (dotenv.error) {
-  throw dotenv.error
-  console.log(dotenv.error)
-}
+// if (dotenv.error) {
+//   throw dotenv.error
+//   console.log(dotenv.error)
+// }
 
 let transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
