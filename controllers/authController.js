@@ -78,7 +78,7 @@ module.exports.getConfirmSignUp = async (req, res, next) => {
     req.session.user = confirmedUser;
     await req.flash('authInfo', 'Your account created!');
     req.session.save((err) => {
-      if (err) console.log(err);
+      if (err) errorHandler(err, next);
       res.redirect('/');
     })
   } catch (err) {
@@ -158,7 +158,7 @@ module.exports.postSignUp = async (req, res, next) => {
       subject: "e-mail address confirmation",
       html: `
     <p> You requested to sign up for a new account in QUIZ GAME using this e-mail address: ${email}</p>
-    <p><a href="http://https://warm-harbor-74468.herokuapp.com/auth/signup/${signUpToken}">Click this link to confirm</a></p>
+    <p><a href="https://warm-harbor-74468.herokuapp.com/auth/signup/${signUpToken}">Click this link to confirm</a></p>
     <p>If it\'s someone\'s mistake and you don\'t intend to sign up in QUIZ GAME, just ignore this message, we won\'t use your e-mail address.</p>`,
     })
   } catch (err) {
@@ -290,7 +290,7 @@ module.exports.postResetPass = async (req, res, next) => {
       subject: "reseting password ...",
       html: `
     <p> You requested to reset a password for the account in QUIZ GAME connected to this e-mail address: ${email}</p>
-    <p><a href="http://https://warm-harbor-74468.herokuapp.com/auth/resetpass/${resetToken}">Click this link to reset.</a></p>`
+    <p><a href="https://warm-harbor-74468.herokuapp.com/auth/resetpass/${resetToken}">Click this link to reset.</a></p>`
     })
   } catch (err) {
     console.log(err)
