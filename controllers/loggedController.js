@@ -32,7 +32,7 @@ module.exports.getSettings = async (req, res, next) => {
   try {
     const [message = []] = await req.consumeFlash('authInfo');
     const { name, email } = await User.findById(req.session.user._id).exec()
-    res.render('logged/settingsview', {
+    res.render('logged/settingview', {
       title: 'The Quiz Game - settings',
       inputValues: {
         name,
