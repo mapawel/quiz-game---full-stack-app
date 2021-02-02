@@ -8,5 +8,9 @@ router.get('/results', rootController.getResults);
 
 router.get('/mystat', rootController.getMyStat);
 
+router.get('/notexistingaccount', rootController.getNotexistingaccount);
+
+router.get('/loggedoutuser', rootController.getLoggedoutuser);
+
 module.exports = router;
 

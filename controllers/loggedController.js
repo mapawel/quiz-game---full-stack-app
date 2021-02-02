@@ -1,32 +1,13 @@
-// const dotenv = require('dotenv').config();
 const fs = require('fs');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { capitalize } = require('../helpers/capitalize');
 const { generateToken } = require('../helpers/generateToken');
 const { validateUnique } = require('../helpers/validateUnique');
-const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
 const errorHandler = require('../utils/errorHandler');
-
-// if (dotenv.error) {
-//   throw dotenv.error
-//   console.log(dotenv.error)
-// }
-
-let transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  secure: true,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-})
-
+const transporter = require('../helpers/transporter');
+const herokuHost = require('../helpers/herokuhost');
 
 module.exports.getSettings = async (req, res, next) => {
   try {
@@ -115,7 +96,7 @@ module.exports.postDataUpdate = async (req, res, next) => {
           subject: "e-mail change confirmation",
           html: `
       <p> You requested to change an e-mail address in QUIZ GAME to: ${email}</p>
-      <p><a href="https://warm-harbor-74468.herokuapp.com/logged/changemail/${changMailToken}">Click this link to confirm</a></p>
+      <p><a href="${herokuHost}/logged/changemail/${changMailToken}">Click this link to confirm</a></p>
       <p>If it\'s someone\'s mistake and you don\'t intend it, just ignore this req.message, we won\'t use your e-mail address.</p>`,
         })
       }

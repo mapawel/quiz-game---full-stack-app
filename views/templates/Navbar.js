@@ -39,7 +39,7 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar, menuActive }) => (
               )
             }
             <figure className="image is-48x48 menu-avatar">
-              {avatar ? (
+              {avatar && isLoggedIn ? (
                 <img src={`/${avatar}`} />
               ) : (
                   <img src="/images/guestUser.svg" />
@@ -48,7 +48,7 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar, menuActive }) => (
 
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">
-                {userName}
+                {isLoggedIn ? userName : 'Guest'}
               </a>
 
               <div className="navbar-dropdown is-boxed">

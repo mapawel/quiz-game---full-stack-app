@@ -1,30 +1,11 @@
-// const dotenv = require('dotenv').config();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { capitalize } = require('../helpers/capitalize');
 const { generateToken } = require('../helpers/generateToken');
-const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
 const errorHandler = require('../utils/errorHandler');
-
-// if (dotenv.error) {
-//   throw dotenv.error
-//   console.log(dotenv.error)
-// }
-
-let transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  secure: true,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-})
-
+const transporter = require('../helpers/transporter');
+const herokuHost = require('../helpers/herokuhost');
 
 module.exports.getCheckAccount = async (req, res, next) => {
   try {
@@ -158,7 +139,7 @@ module.exports.postSignUp = async (req, res, next) => {
       subject: "e-mail address confirmation",
       html: `
     <p> You requested to sign up for a new account in QUIZ GAME using this e-mail address: ${email}</p>
-    <p><a href="https://warm-harbor-74468.herokuapp.com/auth/signup/${signUpToken}">Click this link to confirm</a></p>
+    <p><a href="${herokuHost}/auth/signup/${signUpToken}">Click this link to confirm</a></p>
     <p>If it\'s someone\'s mistake and you don\'t intend to sign up in QUIZ GAME, just ignore this message, we won\'t use your e-mail address.</p>`,
     })
   } catch (err) {
@@ -290,7 +271,7 @@ module.exports.postResetPass = async (req, res, next) => {
       subject: "reseting password ...",
       html: `
     <p> You requested to reset a password for the account in QUIZ GAME connected to this e-mail address: ${email}</p>
-    <p><a href="https://warm-harbor-74468.herokuapp.com/auth/resetpass/${resetToken}">Click this link to reset.</a></p>`
+    <p><a href="${herokuHost}/auth/resetpass/${resetToken}">Click this link to reset.</a></p>`
     })
   } catch (err) {
     console.log(err)

@@ -1,5 +1,5 @@
 const debug = require('debug')('game')
-// const dotenv = require('dotenv').config()
+require('dotenv-safe').config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -13,12 +13,6 @@ const authRoutes = require('./routes/authRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 const loggedRoutes = require('./routes/loggedRoutes');
 const errorHandler = require('./utils/errorHandler');
-
-
-// if (dotenv.error) {
-//   throw dotenv.error
-//   console.log(dotenv.error)
-// }
 
 mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log('ERROR WHILE INITIAL CONNECT TO MONGODB', err));
@@ -63,12 +57,19 @@ app.use(async (req, res, next) => {
   try {
     if (req.session.user) {
       const currentUser = await User.findById(req.session.user._id).exec();
-      if (!currentUser) return next()
-      req.session.user = currentUser;
+      if (!currentUser) {
+        req.session.user = null
+        return res.redirect('/notexistingaccount')
+      }
+      if (!currentUser.isLoggedIn) {
+        req.session.user = null
+        return res.redirect('/loggedoutuser')
+      }
+      req.session.currentGame = ({ ...req.session.currentGame });
       res.locals.isLoggedIn = currentUser.isLoggedIn;
+      req.session.user = currentUser;
       res.locals.userName = currentUser.name;
       res.locals.avatar = currentUser.avatar;
-      req.session.currentGame = ({ ...req.session.currentGame });
     }
     next();
   } catch (err) {

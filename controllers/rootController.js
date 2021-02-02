@@ -5,6 +5,9 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getStart = async (req, res, next) => {
   try {
+
+    console.log(req.hostname) /////////////
+
     const [message] = await req.consumeFlash('authInfo');
     let winners = await User
       .find({ winnerQty: { $gt: 0 } })
@@ -141,6 +144,34 @@ module.exports.getMyStat = async (req, res, next) => {
         maxScore,
       },
       menuActive: 'mystats',
+    })
+  } catch (err) {
+    errorHandler(err, next)
+  }
+}
+
+module.exports.getNotexistingaccount = async (req, res, next) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) errorHandler(err, next);
+      res.render('notexistingaccount', {
+        title: 'The Quiz Game - account info',
+        message: 'user didnt found, session removed'
+      })
+    })
+  } catch (err) {
+    errorHandler(err, next)
+  }
+}
+
+module.exports.getLoggedoutuser = async (req, res, next) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) errorHandler(err, next);
+      res.render('loggedoutuser', {
+        title: 'The Quiz Game - account info',
+        message: 'user logged out on the other device!'
+      })
     })
   } catch (err) {
     errorHandler(err, next)
