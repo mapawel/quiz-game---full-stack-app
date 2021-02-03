@@ -6,7 +6,7 @@ const Footer = () => (
       <p className="mb-2">
         &copy; 2021
           {' '}
-        <a href="https://github.com/mapawel">mapawel</a>
+        <a href="https://www.devpav.com/">mapawel</a>
           , All rights reserved
       </p>
       <p>Illustrations by <a href="https://storyset.com">Freepik Storyset</a></p>

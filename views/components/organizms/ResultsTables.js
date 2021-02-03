@@ -57,10 +57,10 @@ const ResultsTables = ({ userName, results, page, isLoadingDisabled }) => {
             </>
           )}
           {isLoadingDisabled ? (
-            <button className="button is-primary is-align-self-flex-start" disabled={isLoadingDisabled} >load more ...</button>
+            <button className="button is-primary is-rounded is-align-self-flex-start" disabled={isLoadingDisabled} >load more ...</button>
           ) : (
               <a href={pageLink} className="is-align-self-flex-start">
-                <button className="button is-primary " disabled={isLoadingDisabled} >load more ...</button>
+                <button className="button is-primary is-rounded" disabled={isLoadingDisabled} >load more ...</button>
               </a>
             )
           }

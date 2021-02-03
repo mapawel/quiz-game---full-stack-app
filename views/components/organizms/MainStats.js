@@ -32,7 +32,7 @@ const MainStats = ({ mainStats: {
           </div>
           <div className="column has-text-centered is-flex">
             <div className="box p-6 box-wide">
-              <p className="is-size-2 is-size-1-widescreen has-text-weight-bold">{bestFormatedTime}</p>
+              <p className="is-size-1 has-text-weight-bold">{bestFormatedTime}</p>
               <p className="is-size-3 has-text-grey-light">minutes</p>
               <p className="is-size-7 has-text-grey-light">is</p>
               <p className="is-size-3 is-size-2-widescreen has-text-weight-bold">the best</p>
@@ -40,9 +40,9 @@ const MainStats = ({ mainStats: {
             </div>
           </div>
         </div>
-        <a href="/mystat" className="level-right">
-          <button className="button is-primary is-medium mt-4 mb-6">my statistics</button>
-        </a>
+        <div className="is-flex is-justify-content-flex-end">
+        <a href="/mystat" className="button is-primary is-rounded is-medium mt-4 mb-6">my statistics</a>
+        </div>
       </div>
     </div>
   </section>

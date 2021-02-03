@@ -1,6 +1,7 @@
 import React from 'react'
 import HeadTemplate from '../templates/HeadTemplate';
 import Clock from '../components/organizms/Clock';
+import Message from '../components/molecules/Message';
 
 const PlayGame = ({ userName, title, avatar, message, gameData: { question, answers, id }, currentGame: { questionsToAnswer = 10, gameStartTime }, userScore: {
   maxScore, bestWinFormatedTime }, isLoggedIn }) => {
@@ -54,10 +55,7 @@ const PlayGame = ({ userName, title, avatar, message, gameData: { question, answ
               </form>
             )}
           </div>
-          {message && <div className="notification has-text-centered is-primary self-close">
-            <button className="delete"></button>
-            {message && <span className="subtitle is-6 is-size-5-tablet is-size-4-desktop has-text-white mb-4">{message}</span>}
-          </div>}
+          {message && <Message message={message} close="game" />}
         </div>
       </section>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossOrigin="anonymous"></script>

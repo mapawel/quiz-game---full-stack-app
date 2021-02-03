@@ -17,9 +17,9 @@ const ResetPass = ({ userName, isLoggedIn, avatar, title, message, inputValues: 
           <form className="fled" method="POST" action="/auth/resetpass" >
             <label className="label" htmlFor="mail">e-mail:</label>
             <div className="control">
-              <input className="input is-primary" name="email" id="mail" defaultValue={email} type="text" placeholder="yourmail@example.com" autoComplete="nope" />
+              <input className="input is-primary is-rounded" name="email" id="mail" defaultValue={email} type="text" placeholder="yourmail@example.com" autoComplete="nope" />
             </div>
-            <button type="submit" className="button is-primary">Reset password</button>
+            <button type="submit" className="button is-primary is-rounded">Reset password</button>
           </form>
         </div>
       </OneColumnTemplate>

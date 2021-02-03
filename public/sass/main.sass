@@ -1,7 +1,6 @@
 @charset "utf-8"
 // modify the bulma variables here
 $primary: #4e886c
-// $primary: #7FAB96
 $dark: #dddfd7
 $success: #fdef25
 $warning: #EB6418
@@ -13,6 +12,7 @@ $footer-padding: 1.5rem 1.5rem 2rem
 $table-background-color: transparent
 $border: white
 $table-cell-border: 2px solid $border
+$radius-large: 15px
 $navbar-item-hover-color: $primary
 $navbar-item-active-color: $primary
 $navbar-dropdown-item-active-color: $primary
@@ -20,11 +20,11 @@ $navbar-dropdown-item-hover-color: $primary
 $navbar-dropdown-arrow: $primary
 $family-primary: 'Cairo', sans-serif
 $family-secondary: 'Comfortaa', sans-serif
-$size-1: 5rem
-$size-2: 4rem
-$size-3: 3rem
-$size-4: 2.5rem
-$size-5: 2rem
+$size-1: 4.5rem
+$size-2: 3.2rem
+$size-3: 2.4rem
+$size-4: 2.1rem
+$size-5: 1.7rem
 $size-medium: 1.6rem
 $gap: 32px !default
 $desktop: 1050px + (2 * $gap)
@@ -34,10 +34,12 @@ $fullhd: 1600px + (2 * $gap) !default
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&display=swap')
 
+//GENERAL:
+
 *, *::before, *::after
+  box-sizing: border-box
   margin: 0
   padding: 0
-  box-sizing: border-box
 
 html
   font-size: 110%
@@ -53,8 +55,69 @@ body
   padding: 0 .5rem
 
 .button
-  white-space: normal
   height: auto
+  white-space: normal
+
+.menu-avatar
+  overflow: hidden
+  border: 1px solid $primary
+  border-radius: 50%
+
+.section
+  padding: 30px 5px
+  
+.hero-body
+  padding: 0
+
+.footer
+  margin-top: auto
+
+.curved-section
+  padding: 80px 0
+
+.section-high
+  padding: 100px 0
+
+.box
+  padding: 1.5rem 2rem
+
+.box-wide
+  width: 100%
+
+.box-dark
+  background-color: $dark
+  box-shadow: 0 0 30px -5px #BBBBBB
+
+.game-img
+  max-height: 600px
+
+.topcurve
+  width: 100%
+  height: 400px
+  margin-top: -350px
+  margin-bottom: -1px
+  background-image: url('/images/uppercurve.svg')
+  background-position-x: 50%
+
+.bottomcurve
+  width: 100%
+  height: 400px
+  margin-bottom: -320px
+  margin-top: -1px
+  background-image: url('/images/uppercurve.svg')
+  background-position-x: 50%
+  transform: rotate(180deg)
+
+.spacer
+  height: 75px
+
+.big-paragraph
+  font-size: 12rem
+
+.color-text
+  color: ($text !important)
+
+// FORMS:
 
 .control
   margin-bottom: 1rem
@@ -70,13 +133,13 @@ form
   top: 0
   left: 0
   height: 100%
+  padding: .3em .6em
+  padding-left: 28px
   background-image: url('/images/upload.svg')
   background-repeat: no-repeat
   background-position: 8px center
   block-size: contain
   border: none
-  padding: .3em .6em
-  padding-left: 28px
   background-color: $primary
   color: white
   font-family: Cairo
@@ -122,60 +185,12 @@ input[type=checkbox]:checked:after
   top: 2px
   left: 6px
 
-.box
-  padding: 1.5rem 2rem
 
 @media screen and ( min-width: 600px )
   .box
     padding: 2.5rem 3rem
   .clock-wrapper
     margin-left: 50px
-
-.menu-avatar
-  overflow: hidden
-  border: 1px solid $primary
-  border-radius: 50%
-
-.section
-  padding: 30px 5px
-
-.footer
-  margin-top: auto
-
-.curved-section
-  padding: 80px 0
-
-.section-high
-  padding: 100px 0
-
-
-
-.box-wide
-  width: 100%
-
-@media screen and ( max-width: 450px )
-  .table td, .table th
-    padding: .2rem .1rem
-
-.game-img
-  max-height: 600px
-
-.topcurve
-  margin-top: -350px
-  margin-bottom: -1px
-  background-image: url('/images/uppercurve.svg')
-  width: 100%
-  height: 400px
-  background-position-x: 50%
-
-.bottomcurve
-  margin-bottom: -320px
-  margin-top: -1px
-  background-image: url('/images/uppercurve.svg')
-  width: 100%
-  height: 400px
-  background-position-x: 50%
-  transform: rotate(180deg)
 
 @media screen and ( min-width: 1200px )
   .topcurve
@@ -185,24 +200,16 @@ input[type=checkbox]:checked:after
   .game-section
     margin-top: 100px
 
+@media screen and ( max-width: 450px )
+  .table td, .table th
+    padding: .2rem .1rem
 
-.hero-body
-  padding: 0
 
-.box-dark
-  background-color: $dark
-  box-shadow: 0 0 30px -5px #BBBBBB
 
-.spacer
-  height: 75px
 
-.big-paragraph
-  font-size: 12rem
 
-.color-text
-  color: ($text !important)
 
-      // clock
+// clock
 
 .clock-wrapper
   position: relative

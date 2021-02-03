@@ -21,24 +21,24 @@ const SignUp = ({ userName, title, avatar, message, inputValues: { name, email }
             <form className="fled" method="POST" action="/auth/signup" encType="multipart/form-data">
               <label className="label" htmlFor="name">*name:</label>
               <div className="control">
-                <input className="input is-primary" name="name" id="name" defaultValue={name} type="text" placeholder="John / Jane" autoComplete="nope" />
+                <input className="input is-primary is-rounded" name="name" id="name" defaultValue={name} type="text" placeholder="John / Jane" autoComplete="nope" />
               </div>
               <label className="label" htmlFor="email">*e-mail:</label>
               <div className="control">
-                <input className="input is-primary" name="email" id="email" defaultValue={email} type="text" placeholder="example@axample.com" />
+                <input className="input is-primary is-rounded" name="email" id="email" defaultValue={email} type="text" placeholder="example@axample.com" />
               </div>
               <label className="label" htmlFor="avatar">avatar / photo:</label>
               <div className="control">
-                <input className="input is-primary" name="avatar" id="avatar" type="file" placeholder="file ..." />
+                <input className="input is-primary is-rounded" name="avatar" id="avatar" type="file" placeholder="file ..." />
               </div>
 
               <label className="label" htmlFor="password">*password:</label>
               <div className="control">
-                <input className="input is-primary" name="password" id="password" type="password" placeholder="my strong pass..." />
+                <input className="input is-primary is-rounded" name="password" id="password" type="password" placeholder="my strong pass..." />
               </div>
               <label className="label" htmlFor="confirmpassword">*confrm password:</label>
               <div className="control">
-                <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same password" />
+                <input className="input is-primary is-rounded" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same password" />
               </div>
               {canTransfer &&
                 <div>
@@ -48,7 +48,7 @@ const SignUp = ({ userName, title, avatar, message, inputValues: { name, email }
                   </label>
                 </div>
               }
-              <button type="submit" className="button is-primary">Sign Up</button>
+              <button type="submit" className="button is-primary is-rounded">Sign Up</button>
             </form>
           </div>
         }

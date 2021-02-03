@@ -64,7 +64,7 @@ const Winners = ({ resultsTables: { winners = [], restPlayers = [] } }) => (
                   </table>
                 </>
               )}
-              <a href="/results" className="is-align-self-flex-start"><button className="button is-primary is-medium mt-4">full list</button></a>
+              <a href="/results" className="is-align-self-flex-start button is-primary is-rounded is-medium mt-4">full list</a>
             </div>
             <div className="column is-three-fifths">
               <figure className="image is-4by3">

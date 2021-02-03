@@ -18,14 +18,14 @@ const Navbar = ({ userName = 'Guest', isLoggedIn, avatar, menuActive }) => (
       <div id="navBarTop" className="navbar-menu">
         <div className="navbar-start">
           <div className="navbar-item mx-3">
-            <a href="/auth" className="button is-success is-outlined has-text-black">
-              PLAY
+            <a href="/auth" className="button is-success is-rounded is-outlined has-text-black">
+              Play
             </a>
           </div>
           <a href="/results" className={menuActive === 'results' ? 'navbar-item mx-3 is-active' : 'navbar-item mx-3'}>
             Results
               </a>
-          <a className="navbar-item mx-3">
+          <a href="/about" className="navbar-item mx-3">
             About
               </a>
         </div>

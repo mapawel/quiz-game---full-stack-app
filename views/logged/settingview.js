@@ -25,17 +25,17 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
             <input type="hidden" name="transfer" value="" />
             <label className="label" htmlFor="name">*name:</label>
             <div className="control">
-              <input className="input is-primary" name="name" id="name" defaultValue={name} type="text" placeholder="John / Jane" autoComplete="nope" />
+              <input className="input is-primary is-rounded" name="name" id="name" defaultValue={name} type="text" placeholder="John / Jane" autoComplete="nope" />
             </div>
             <label className="label" htmlFor="email">*e-mail:</label>
             <div className="control">
-              <input className="input is-primary" name="email" id="email" defaultValue={email} type="text" placeholder="example@axample.com" autoComplete="nope" />
+              <input className="input is-primary is-rounded" name="email" id="email" defaultValue={email} type="text" placeholder="example@axample.com" autoComplete="nope" />
             </div>
             <label className="label" htmlFor="avatar">avatar / photo:</label>
             <div className="control">
-              <input className="input is-primary" name="avatarChange" id="avatar" type="file" placeholder="file ..." />
+              <input className="input is-primary is-rounded" name="avatarChange" id="avatar" type="file" placeholder="file ..." />
             </div>
-            <button type="submit" className="button is-primary">Udate</button>
+            <button type="submit" className="button is-primary is-rounded">Udate</button>
           </form>
         </div>
         <div className="box">
@@ -50,9 +50,7 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
                   <img src="/images/guestUser.svg" />
                 )}
             </figure>
-            <a href="/logged/removeavatar?delete=true" className="">
-              <button type="submit" className="button is-warning is-small">Remove</button>
-            </a>
+            <a href="/logged/removeavatar?delete=true" className="button is-warning is-small is-rounded">Remove</a>
           </div>
         </div>
         <div className="box">
@@ -62,17 +60,17 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
           <form className="fled" method="POST" action="/logged/changepassword">
             <label className="label" htmlFor="oldpassword">*old password:</label>
             <div className="control">
-              <input className="input is-primary" name="oldpassword" id="oldpassword" type="password" placeholder="current pass..." />
+              <input className="input is-primary is-rounded" name="oldpassword" id="oldpassword" type="password" placeholder="current pass..." />
             </div>
             <label className="label" htmlFor="password">*new password:</label>
             <div className="control">
-              <input className="input is-primary" name="password" id="password" type="password" placeholder="my new strong pass..." />
+              <input className="input is-primary is-rounded" name="password" id="password" type="password" placeholder="my new strong pass..." />
             </div>
             <label className="label" htmlFor="confirmpassword">*confrm new password:</label>
             <div className="control">
-              <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same new password" />
+              <input className="input is-primary is-rounded" name="confirmpassword" id="confirmpassword" type="password" placeholder="the same new password" />
             </div>
-            <button type="submit" className="button is-primary">Change password</button>
+            <button type="submit" className="button is-primary is-rounded">Change password</button>
           </form>
         </div>
         <div className="box">
@@ -83,14 +81,12 @@ const Settings = ({ userName, title, avatar, message, inputValues: { name, email
             <form className="fled" method="POST" action="/logged/removeaccount">
               <label className="label" htmlFor="password">confirm by password:</label>
               <div className="control">
-                <input className="input is-primary" name="password" id="password" type="password" placeholder="min 8 characters" />
+                <input className="input is-primary is-rounded" name="password" id="password" type="password" placeholder="min 8 characters" />
               </div>
-              <button type="submit" className="button is-warning is-small">Delete</button>
+              <button type="submit" className="button is-warning is-small is-rounded">Delete</button>
             </form>
           ) : (
-              <a href="/logged/removeaccount" className="">
-                <button type="button" className="button is-warning is-small mb-5">DELETE THIS ACCOUNT</button>
-              </a>
+              <a href="/logged/removeaccount" className="button is-warning is-small is-rounded mb-5">DELETE THIS ACCOUNT</a>
             )
           }
         </div>

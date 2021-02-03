@@ -12,9 +12,7 @@ const Header = () => (
         <h3 className="subtitle is-5 is-size-4-tablet is-size-3-desktop has-text-grey mb-6">
           Let's try to test yourself in general knowledge. Can you join the winners?
           </h3>
-        <a href="/auth" className="is-align-self-flex-end">
-          <button className="button is-success is-medium mr-5">PLAY</button>
-        </a>
+        <a href="/auth" className="is-align-self-flex-end button is-success is-rounded is-medium mr-5">Play</a>
       </div>
     </TwoColumnsTemplate>
   </section>

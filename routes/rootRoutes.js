@@ -8,6 +8,8 @@ router.get('/results', rootController.getResults);
 
 router.get('/mystat', rootController.getMyStat);
 
+router.get('/about', rootController.getAbout);
+
 router.get('/notexistingaccount', rootController.getNotexistingaccount);
 
 router.get('/loggedoutuser', rootController.getLoggedoutuser);

@@ -19,13 +19,13 @@ const NewPass = ({ userName, isLoggedIn, avatar, title, resetToken, userId, mess
             <input name="userId" value={userId} type="hidden" />
             <label className="label" htmlFor="password">new password:</label>
             <div className="control">
-              <input className="input is-primary" name="password" id="password" type="password" placeholder="minimum 8 characters" autoComplete="nope" />
+              <input className="input is-primary is-rounded" name="password" id="password" type="password" placeholder="minimum 8 characters" autoComplete="nope" />
             </div>
             <label className="label" htmlFor="confirmpassword">confirm a new password:</label>
             <div className="control">
-              <input className="input is-primary" name="confirmpassword" id="confirmpassword" type="password" placeholder="repeat your password" autoComplete="nope" />
+              <input className="input is-primary is-rounded" name="confirmpassword" id="confirmpassword" type="password" placeholder="repeat your password" autoComplete="nope" />
             </div>
-            <button type="submit" className="button is-primary">Reset password</button>
+            <button type="submit" className="button is-primary is-rounded">Reset password</button>
           </form>
         </div>
       </OneColumnTemplate>

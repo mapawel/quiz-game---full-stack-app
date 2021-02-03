@@ -19,14 +19,12 @@ const FinishGame = ({ userName, title, avatar, message, stats: { pointsInCurrent
               </p>
               <div className="level">
                 <div className="level-left">
-                  <a href="/results" className="">
-                    <button className="button is-primary">See results</button>
-                  </a>
+                  <a href="/results" className="button is-primary is-rounded">See results</a>
                 </div>
                 <div className="level-right">
                   <form className="fled is-align-self-flex-end" method="POST" action="/game/prepare">
                     <input className="input is-primary" name="name" id="nick" type="hidden" value={userName} />
-                    <button type="submit" className="button is-success">Play again</button>
+                    <button type="submit" className="button is-success is-rounded">Play again</button>
                   </form>
                 </div>
               </div>

@@ -17,9 +17,7 @@ const PrepareGame = ({ userName, title, isLoggedIn, avatar }) => (
               <p className="subtitle is-6 is-size-4-tablet is-size-3-desktop has-text-grey mb-6">
                 answer 10 questions, watch your time! Good luck!
               </p>
-              <a href="/game/play" className="is-align-self-flex-end">
-                <button className="button is-success is-medium mr-4"><b>Play</b></button>
-              </a>
+              <a href="/game/play" className="is-align-self-flex-end button is-success is-rounded is-medium mr-4"><b>Play</b></a>
             </div>
             <div className="column ml-6">
               <figure className="image">

@@ -176,6 +176,16 @@ module.exports.getMyStat = async (req, res, next) => {
   }
 }
 
+module.exports.getAbout = async (req, res, next) => {
+  try {
+    res.render('about', {
+      title: 'The Quiz Game - about',
+    })
+  } catch (err) {
+    errorHandler(err, next)
+  }
+}
+
 module.exports.getNotexistingaccount = async (req, res, next) => {
   try {
     req.session.destroy((err) => {
