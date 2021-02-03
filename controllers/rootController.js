@@ -3,10 +3,36 @@ const moment = require('moment');
 const RESULTS_PER_PAGE = 25;
 const errorHandler = require('../utils/errorHandler');
 
+///////////////////// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+module.exports.rootUserManagingController = async (req, res, next) => {
+  try {
+    if (req.session.user) {
+      const currentUser = await User.findById(req.session.user._id).exec();
+      if (!currentUser) {
+        req.session.user = null
+        return res.redirect('/notexistingaccount')
+      }
+      if (!currentUser.isLoggedIn && currentUser.email !== 'Guest') {
+        req.session.user = null
+        return res.redirect('/loggedoutuser')
+      }
+      req.session.currentGame = ({ ...req.session.currentGame });
+      res.locals.isLoggedIn = currentUser.isLoggedIn;
+      req.session.user = currentUser;
+      res.locals.userName = currentUser.name;
+      res.locals.avatar = currentUser.avatar;
+    }
+    next();
+  } catch (err) {
+    errorHandler(err, next)
+  }
+}
+///////////////// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 module.exports.getStart = async (req, res, next) => {
   try {
 
-    console.log(req.hostname) /////////////
+    console.log(req.hostname) ///////////// to remove
 
     const [message] = await req.consumeFlash('authInfo');
     let winners = await User
@@ -156,7 +182,6 @@ module.exports.getNotexistingaccount = async (req, res, next) => {
       if (err) errorHandler(err, next);
       res.render('notexistingaccount', {
         title: 'The Quiz Game - account info',
-        message: 'user didnt found, session removed'
       })
     })
   } catch (err) {
@@ -170,10 +195,16 @@ module.exports.getLoggedoutuser = async (req, res, next) => {
       if (err) errorHandler(err, next);
       res.render('loggedoutuser', {
         title: 'The Quiz Game - account info',
-        message: 'user logged out on the other device!'
       })
     })
   } catch (err) {
     errorHandler(err, next)
   }
+}
+
+module.exports.handle404 = (req, res) => res.render('404', { title: 'Page not found' })
+
+module.exports.handle500 = (error, req, res, next) => {
+  console.log('MAIN APP ERROR HANDLER LOG: ', error)
+  res.status(500).render('500', { title: 'Technical problem' });
 }

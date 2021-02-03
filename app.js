@@ -7,12 +7,11 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const { flash } = require('express-flash-message');
-const User = require('./models/user');
 const rootRoutes = require('./routes/rootRoutes');
 const authRoutes = require('./routes/authRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 const loggedRoutes = require('./routes/loggedRoutes');
-const errorHandler = require('./utils/errorHandler');
+const rootController = require('./controllers/rootController');
 
 mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log('ERROR WHILE INITIAL CONNECT TO MONGODB', err));
@@ -41,8 +40,6 @@ app.set('view engine', 'js');
 app.engine('js', require('express-react-views').createEngine({ throwIfNamespace: false }));
 
 
-// mongoose.set('debug', true)
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -52,47 +49,21 @@ app.use(session(userSession));
 app.use(flash({ sessionKeyName: 'flashMessage', useCookieSession: true }));
 
 
-
-app.use(async (req, res, next) => {
-  try {
-    if (req.session.user) {
-      const currentUser = await User.findById(req.session.user._id).exec();
-      if (!currentUser) {
-        req.session.user = null
-        return res.redirect('/notexistingaccount')
-      }
-      if (!currentUser.isLoggedIn) {
-        req.session.user = null
-        return res.redirect('/loggedoutuser')
-      }
-      req.session.currentGame = ({ ...req.session.currentGame });
-      res.locals.isLoggedIn = currentUser.isLoggedIn;
-      req.session.user = currentUser;
-      res.locals.userName = currentUser.name;
-      res.locals.avatar = currentUser.avatar;
-    }
-    next();
-  } catch (err) {
-    errorHandler(err, next)
-  }
-})
-
 app.use((req, res, next) => {
   debug(req.method + ' ' + req.url);
   next()
 })
+
+
+app.use(rootController.rootUserManagingController)
 
 app.use('/', rootRoutes);
 app.use('/auth', authRoutes);
 app.use('/logged', loggedRoutes);
 app.use('/game', gameRoutes);
 
-app.use((req, res) => res.render('404', { title: 'Page not found' }));
-
-app.use((error, req, res, next) => {
-  console.log('MAIN APP ERROR HANDLER LOG: ', error)
-  res.status(500).render('500', { title: 'Technical problem' });
-})
+app.use(rootController.handle404);
+app.use(rootController.handle500)
 
 
 db.on('error', console.error.bind(console, 'connection error:'));
