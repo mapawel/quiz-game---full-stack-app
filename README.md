@@ -1,20 +1,7 @@
 # QUIZ GAME
 ## full stack SSR with auth and database
+> :warning: One of my first backend projects completed during my backend-end learning. Since that time, I have gained a lot of skills, and today it would look completely different :see_no_evil: I leave the code in the repository as a trace of my learning process from 2020 for comparison with current projects.
 
-### Project scope:
-
-**full design with a selection of fonts, colors, illustrations
-creating graphic components - e.g. an animated clock
-design templates for front of the application
-creating a server application that connects to the database and provides data in templates to the front
-authentication and authorization system
-creating a user zone with data management
-creating game logic, actions, scoring, timing
-creating statistics and rankings
-launching the application on the cheapest possible hosting to present the operation
-application for further development after finding a commercial use.**
-
-### Description:
 #### Tech stack:
 
 - Node.js -> Express.js
@@ -26,8 +13,22 @@ application for further development after finding a commercial use.**
 - Express Validator
 - Multer
 - Moment
-- Description:
 
+### Project scope:
+
+- full design with a selection of fonts, colors, illustrations
+- creating graphic components - e.g. an animated clock
+- design templates for front of the application
+- creating a server application that connects to the database and provides data in templates to the front
+- authentication and authorization system
+- creating a user zone with data management
+- creating game logic, actions, scoring, timing
+- creating statistics and rankings
+- launching the application on the cheapest possible hosting to present the operation
+- application for further development after finding a commercial use.
+
+
+### Description:
 #### technicals
 
 Whole App coded in JS on Node.js with use of Express.js. Server with Node generates html files which are displied in user's web browser - they are custom and depend on user's behaving. Also static JS files are served what is important to give the game smooth run (time lapse effect). App uses Mongo DB to store users' data and game data and express-session and cookies to keep user logged in, to log out etc.
