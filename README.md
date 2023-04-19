@@ -1,5 +1,6 @@
 # QUIZ GAME
 ## full stack SSR with auth and database
+
 > :warning: One of my first backend projects completed during my backend-end learning. Since that time, I have gained a lot of skills, and today it would look completely different :see_no_evil: I leave the code in the repository as a trace of my learning process from 2020 for comparison with current projects.
 
 #### Tech stack:
